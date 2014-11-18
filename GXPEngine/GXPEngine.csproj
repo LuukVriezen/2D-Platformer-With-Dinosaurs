@@ -58,6 +58,8 @@
     <Compile Include="GXPEngine\OpenGL\GL.cs" />
     <Compile Include="GXPEngine\FMOD\FMOD.cs" />
     <Compile Include="GXPEngine\SoundChannel.cs" />
+    <Compile Include="Creature.cs" />
+    <Compile Include="Level.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GXPEngine\" />
