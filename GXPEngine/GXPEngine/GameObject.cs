@@ -30,6 +30,8 @@ namespace GXPEngine
 		{
 			_invalidate = true;
 			_collider = null;
+
+			if (Game.main != null) Game.main.Add(this);
 		}
 
 		//------------------------------------------------------------------------------------------------------------------------

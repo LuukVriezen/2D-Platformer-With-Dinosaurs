@@ -57,8 +57,6 @@ namespace GXPEngine
 			_bounds = new Rectangle(0, 0, _texture.width, _texture.height);
 			setUVs();
 			_collider = new BoxCollider(this);
-			
-			if (Game.main != null) Game.main.Add(this);
 		}
 		
 		//------------------------------------------------------------------------------------------------------------------------
