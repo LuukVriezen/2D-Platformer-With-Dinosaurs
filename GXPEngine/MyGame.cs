@@ -4,9 +4,10 @@ using System.Drawing;
 
 public class MyGame : Game
 {	
-	public MyGame () : base(1280, 960, false)
+	public MyGame () : base(640, 480, false)
 	{
-
+        Projectile projectile = new Projectile();
+        this.AddChild(projectile);
 	}
 	
 	void Update () {

@@ -10,7 +10,9 @@ namespace GXPEngine.GXPEngine
         //Fields of the items that are collectable.
         int totalScore = 0;
 
-        //Rum
+        //Rum bottle
+        //barrel at the end.
+        //coins / treasureschest on the way
         //
 
         public Collectable()
