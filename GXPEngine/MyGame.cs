@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 using System;
 using GXPEngine;
 using System.Drawing;
@@ -20,7 +19,6 @@ public class MyGame : Game
 	}
 }
 
-=======
 using System;
 using GXPEngine;
 using System.Drawing;
@@ -40,5 +38,3 @@ public class MyGame : Game
 		new MyGame().Start();
 	}
 }
-
->>>>>>> Stash
