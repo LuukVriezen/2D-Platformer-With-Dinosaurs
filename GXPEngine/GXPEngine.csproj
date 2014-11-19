@@ -60,6 +60,8 @@
     <Compile Include="GXPEngine\SoundChannel.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="CreatureSprite.cs" />
+    <Compile Include="CreatureState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GXPEngine\" />
