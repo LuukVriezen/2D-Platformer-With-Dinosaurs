@@ -16,7 +16,7 @@ namespace GXPEngine
 		private CreatureState state;
 		private CreatureSprite sprite;
 
-		public Creature ()
+		public Creature()
 		{
 			//Set default values
 			xSpeed = 0;
@@ -27,7 +27,7 @@ namespace GXPEngine
 
 		private void SetSprite()
 		{
-			sprite = new CreatureSprite();
+			//sprite = new CreatureSprite();
 		}
 
 		private void ApplyGravity()
