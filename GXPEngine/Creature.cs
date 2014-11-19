@@ -16,18 +16,21 @@ namespace GXPEngine
 		private CreatureState state;
 		private CreatureSprite sprite;
 
-		public Creature()
+		public Creature(float weight, float terminalVelocity)
 		{
 			//Set default values
-			xSpeed = 0;
-			ySpeed = 0;
-			state = CreatureState.Idle;
-			sprite = null;
+			this.xSpeed = 0;
+			this.ySpeed = 0;
+			this.weight = weight;
+			this.terminalVelocity = terminalVelocity;
+			this.state = CreatureState.Idle;
+			this.sprite = null;
 		}
 
-		private void SetSprite()
+		private void SetSprite(CreatureSprite sprite)
 		{
-			//sprite = new CreatureSprite();
+			this.sprite = sprite;
+			this.AddChild(this.sprite);
 		}
 
 		private void ApplyGravity()
