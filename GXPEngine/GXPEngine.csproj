@@ -32,9 +32,11 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Reference Include="System" />
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GXPEngine\Collectable.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -62,13 +64,7 @@
     <Compile Include="Level.cs" />
     <Compile Include="CreatureSprite.cs" />
     <Compile Include="CreatureState.cs" />
+    <Compile Include="Projectile.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GXPEngine\" />
-    <Folder Include="GXPEngine\OpenGL\" />
-    <Folder Include="GXPEngine\Core\" />
-    <Folder Include="GXPEngine\Utils\" />
-    <Folder Include="GXPEngine\Managers\" />
-    <Folder Include="GXPEngine\FMOD\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
