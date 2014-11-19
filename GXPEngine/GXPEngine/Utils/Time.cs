@@ -41,7 +41,7 @@ namespace GXPEngine
 		public static int deltaTime {
 			get { return now - previousTime; }
 		}
-		
+
 		internal static void newFrame() {
 			previousTime = now;
 		}

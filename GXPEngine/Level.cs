@@ -36,14 +36,14 @@ namespace GXPEngine
 			};
 			//TEMPEND
 			
-			
+			FillLevel();
 		}
 
 		public void FillLevel()
 		{
-			for (int x = 0; x < tileData.GetLength(0); x++) {
-				for (int y = 0; y < tileData.GetLength(1); y++) {
-					switch(tileData[x, y])
+			for (int x = 0; x < tileData.GetLength(1); x++) {
+				for (int y = 0; y < tileData.GetLength(0); y++) {
+					switch(tileData[y, x])
 					{
 						case 1:
 							Platform platform = new Platform();
@@ -52,7 +52,7 @@ namespace GXPEngine
 							break;
 
 						case 2:
-							Player player = new Player();
+							Player player = new Player(0, 0, 0.8f, 1);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;

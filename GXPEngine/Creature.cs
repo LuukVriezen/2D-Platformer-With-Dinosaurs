@@ -5,8 +5,10 @@ namespace GXPEngine
 	public class Creature : GameObject
 	{
 		//Movement properties
-		private float xSpeed; //The X distance to move in the current frame
-		private float ySpeed; //The Y distance to move in the current frame
+		protected float xSpeed; //The X distance to move in the current frame
+		protected float ySpeed; //The Y distance to move in the current frame
+		protected float walkSpeed; //The maximum speed used for walking
+		protected float jumpHeight; //The speed to use when jumping
 
 		//Gravity properties
 		private float weight; //The Y distance to add each frame
@@ -16,18 +18,20 @@ namespace GXPEngine
 		private CreatureState state;
 		private CreatureSprite sprite;
 
-		public Creature(float weight, float terminalVelocity)
+		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
 		{
 			//Set default values
 			this.xSpeed = 0;
 			this.ySpeed = 0;
+			this.walkSpeed = walkSpeed;
+			this.jumpHeight = jumpHeight;
 			this.weight = weight;
 			this.terminalVelocity = terminalVelocity;
 			this.state = CreatureState.Idle;
 			this.sprite = null;
 		}
 
-		private void SetSprite(CreatureSprite sprite)
+		protected void SetSprite(CreatureSprite sprite)
 		{
 			this.sprite = sprite;
 			this.AddChild(this.sprite);
@@ -45,10 +49,10 @@ namespace GXPEngine
 			}
 		}
 
-		void Update()
+		protected void Update()
 		{
-			ApplyGravity();
-			Move(xSpeed, ySpeed);
+			//Temporarily disabled: ApplyGravity();
+			Move(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime);
 		}
 	}
 }
