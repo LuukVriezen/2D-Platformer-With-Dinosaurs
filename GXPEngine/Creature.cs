@@ -51,7 +51,7 @@ namespace GXPEngine
 
 		protected void Update()
 		{
-			//Temporarily disabled: ApplyGravity();
+			ApplyGravity();
 			Move(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime);
 		}
 	}
