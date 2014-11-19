@@ -65,6 +65,8 @@
     <Compile Include="CreatureSprite.cs" />
     <Compile Include="CreatureState.cs" />
     <Compile Include="Projectile.cs" />
+    <Compile Include="Platform.cs" />
+    <Compile Include="Player.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>
