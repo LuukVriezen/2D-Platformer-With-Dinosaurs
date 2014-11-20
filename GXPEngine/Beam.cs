@@ -13,7 +13,7 @@ namespace GXPEngine
 
         public Beam() : base("../../Assets/IMG/bullit.png")
         {
-            length = game.width;
+
         }
 
         public void Update()
