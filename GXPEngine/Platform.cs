@@ -8,7 +8,7 @@ namespace GXPEngine
 		public Platform(Point tileCoordinates) : base(tileCoordinates)
 		{
 			//TEMP
-			SetSprite(new Sprite("../../Assets/IMG/platformplaceholder32.png"));
+			SetSprite(new Sprite("../../Assets/IMG/empty.png"));
 			//TEMPEND
 		}
 	}

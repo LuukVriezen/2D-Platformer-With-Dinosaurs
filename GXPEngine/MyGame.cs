@@ -14,7 +14,7 @@ namespace GXPEngine
 		}
 		
 		void Update () {
-			//empty
+			
 		}
 
 		static void Main() {
