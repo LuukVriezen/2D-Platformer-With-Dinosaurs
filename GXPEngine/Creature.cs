@@ -11,6 +11,7 @@ namespace GXPEngine
 		protected float ySpeed; //The Y distance to move in the current frame
 		protected float walkSpeed; //The maximum speed used for walking
 		protected float jumpHeight; //The speed to use when jumping
+		protected bool grounded; //Whether the creature is currently hitting the ground
 
 		//Gravity properties
 		private float weight; //The Y distance to add each frame
@@ -32,6 +33,7 @@ namespace GXPEngine
 			this.preMoveY = this.y;
 			this.walkSpeed = walkSpeed;
 			this.jumpHeight = jumpHeight;
+			this.grounded = false;
 			this.weight = weight;
 			this.terminalVelocity = terminalVelocity;
 			this.state = CreatureState.Idle;
@@ -48,7 +50,7 @@ namespace GXPEngine
 		{
 			//Only apply gravity if ySpeed is not already at or above terminalVelocity
 			//If the terminalVelocity is already reached then gravity will do nothing
-			if(ySpeed < terminalVelocity)
+			if(ySpeed < terminalVelocity || grounded)
 			{
 				//If adding the weight to current ySpeed exceeds the terminalVelocity then set the ySpeed to the terminalVelocity value
 				//Otherwise add weight to ySpeed
@@ -101,32 +103,12 @@ namespace GXPEngine
 					{
 						Platform platform = collidableObject as Platform;
 
-						//Push Left
-						if(x + sprite.width < platform.x + platform.sprite.width && x + sprite.width > platform.x)
-						{
-							x -= (x + sprite.width) - platform.x;
-							xSpeed = 0;
-						}
-
-						//Push Right
-						else if(x < platform.x + platform.sprite.width && x > platform.x)
-						{
-							x += x - (platform.x + platform.sprite.width);
-							xSpeed = 0;
-						}
-
 						//Push Up
-						if(y + sprite.height < platform.y + platform.sprite.height && y + sprite.height > platform.y)
+						if(preMoveY < y && y + sprite.height < platform.y + platform.sprite.height && y + sprite.height > platform.y)
 						{
 							y -= (y + sprite.height) - platform.y;
 							ySpeed = 0;
-						}
-
-						//Push Down
-						else if(y < platform.y + platform.sprite.height && y > platform.y)
-						{
-							y += y - (platform.y + platform.sprite.height);
-							ySpeed = 0;
+							grounded = true;
 						}
 					}
 				}
@@ -135,8 +117,15 @@ namespace GXPEngine
 
 		protected void Update()
 		{
-			//ApplyGravity();
+			ApplyGravity();
+
+			preMoveX = this.x;
+			preMoveY = this.y;
+
 			Move(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime);
+
+			//grounded is false unless proven true in collisions
+			grounded = false;
 			CheckCollisions();
 		}
 	}
