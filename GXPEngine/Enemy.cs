@@ -11,7 +11,7 @@ namespace GXPEngine
         int maxLengthFixedEnemy = 510;
         public Enemy(float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
         {
-            SetSprite(new CreatureSprite("../../Assets/IMG/Ninjalien.png", 1, 1));
+			SetSprite(new AnimSprite("../../Assets/IMG/Ninjalien.png", 1, 1));
         }
 
         void Update()

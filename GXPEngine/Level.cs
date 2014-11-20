@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 namespace GXPEngine
 {
-	public class Level : GameObject
+	public class Level : Canvas
 	{
 		private int[,] tileData;
 		public int tileSize;
+<<<<<<< HEAD
         Player player;
+=======
+		public int score;
+>>>>>>> origin/master
 
-		public Level(/*Temporarily disabled: int tilesX, int tilesY*/)
+		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height) : base(width, height)
 		{
 			//Set default values
 			tileSize = 32;
@@ -28,14 +32,24 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+<<<<<<< HEAD
 				{ 0, 10, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 13, 0, 0, 0, 0, 0 },
+=======
+				{ 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 },
+>>>>>>> origin/master
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
+<<<<<<< HEAD
 				{ 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 }
+=======
+				{ 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1 }
+>>>>>>> origin/master
 			};
 			//TEMPEND
 			
@@ -60,10 +74,10 @@ namespace GXPEngine
 							this.AddChild(player);
 							break;
 
-                        case 3:
-                            Collectable collectable = new Collectable();
-                            collectable.treasure.SetXY(x * tileSize, y * tileSize);
-                            this.AddChild(collectable.treasure);
+						case 3:
+							Collectable collectable = new Collectable(new Point(x, y));
+							collectable.SetXY(x * tileSize, y * tileSize);
+                            this.AddChild(collectable);
 							break;
                         case 5:
                             Enemy enemy = new Enemy(0.1f, 2, 0.8f, 1.5f);
@@ -155,6 +169,7 @@ namespace GXPEngine
 			return tileObjects.ToArray();
 		}
 
+<<<<<<< HEAD
         void Update()
         {
             ShakeShot();
@@ -189,6 +204,12 @@ namespace GXPEngine
         {
             
         }
+=======
+		void Update()
+		{
+			Console.WriteLine("Score: {0}", score);
+		}
+>>>>>>> origin/master
 	}
 }
 
