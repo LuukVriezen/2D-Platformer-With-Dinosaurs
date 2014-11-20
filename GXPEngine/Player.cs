@@ -37,6 +37,11 @@ namespace GXPEngine
 			}
 		}
 
+		protected override void CheckCollisions()
+		{
+			base.CheckCollisions();
+		}
+
 		new void Update()
 		{
 			CheckMovementInput();

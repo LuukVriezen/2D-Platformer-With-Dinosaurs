@@ -1,22 +1,15 @@
 ﻿using System;
+using System.Drawing;
 
 namespace GXPEngine
 {
-	public class Platform : GameObject
+	public class Platform : TileObject
 	{
-		Sprite sprite;
-
-		public Platform ()
+		public Platform(Point tileCoordinates) : base(tileCoordinates)
 		{
 			//TEMP
 			SetSprite(new Sprite("../../Assets/IMG/platformplaceholder32.png"));
 			//TEMPEND
-		}
-
-		public void SetSprite(Sprite sprite)
-		{
-			this.sprite = sprite;
-			this.AddChild(this.sprite);
 		}
 	}
 }

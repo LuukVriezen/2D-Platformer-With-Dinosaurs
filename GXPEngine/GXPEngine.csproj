@@ -68,6 +68,7 @@
     <Compile Include="Projectile.cs" />
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="TileObject.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>
