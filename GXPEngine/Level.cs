@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace GXPEngine
 {
 	public class Level : GameObject
 	{
 		private int[,] tileData;
-		private int tileSize;
+		public int tileSize;
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/)
 		{
@@ -46,7 +48,7 @@ namespace GXPEngine
 					switch(tileData[y, x])
 					{
 						case 1:
-							Platform platform = new Platform();
+							Platform platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(platform);
 							break;
@@ -62,6 +64,20 @@ namespace GXPEngine
 					}
 				}
 			}
+		}
+
+		public TileObject[] GetTileObjectsInTiles(Point[] tiles)
+		{
+			List<TileObject> tileObjects = new List<TileObject>();
+			List<GameObject> children = GetChildren();
+			foreach(GameObject child in children)
+			{
+				if(child is TileObject && Array.IndexOf(tiles, (child as TileObject).tileCoordinates) != -1)
+				{
+					tileObjects.Add(child as TileObject);
+				}
+			}
+			return tileObjects.ToArray();
 		}
 	}
 }
