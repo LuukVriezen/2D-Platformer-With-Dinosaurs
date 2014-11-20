@@ -52,7 +52,7 @@ namespace GXPEngine
 							break;
 
 						case 2:
-							Player player = new Player(0, 0, 0.8f, 1);
+							Player player = new Player(0.1f, 2, 0.8f, 1.5f);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;
