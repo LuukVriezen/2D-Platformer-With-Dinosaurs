@@ -4,6 +4,7 @@ namespace GXPEngine
 {
 	public class Player : Creature
 	{
+        Projectile projectile;
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			//TEMP
@@ -40,8 +41,18 @@ namespace GXPEngine
 		{
 			CheckMovementInput();
 			CheckJumpInput();
+            Shoot();
 			base.Update();
 		}
+
+        private void Shoot()
+        {
+            if (Input.GetKeyDown(Key.P))
+            {
+                projectile = new Projectile(this);
+                parent.AddChild(projectile);
+            }
+        }
 	}
 }
 

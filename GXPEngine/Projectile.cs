@@ -14,58 +14,60 @@ namespace GXPEngine
         int lengthOfPistol = 0;
         int distance = 100;
         bool stopBeam = false;
-        bool stopShot = false;   
+        bool stopShot = true;
+        Player _player;
         //delay
         //back by firing
         
         //Rainbow bullet en beam
         Sprite pistolBullet = new Sprite("../../Assets/IMG/bullit.png");
         //Hit test sprite
-        Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
+        //Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
 
-        public Projectile()
+        public Projectile(Player player)
         {
-            //Constructor of Projectile. Already made for later use.
             AddChild(pistolBullet);
-            pistolBullet.SetXY(0, game.height / 2);
+            pistolBullet.SetXY(player.x, player.y);
+            _player = player;
 
-            AddChild(hitWall);
-            hitWall.SetXY(game.width - hitWall.width - 200, game.height -hitWall.height);
+            //AddChild(hitWall);
+            //hitWall.SetXY(game.width - hitWall.width - 200, game.height -hitWall.height);
 
         }
 
         public void Update()
         {
-            if (Input.GetKeyDown(Key.P) || stopShot)
-            {
+            if (/*Input.GetKeyDown(Key.P) ||*/ stopShot)
+            //{
                 GunShot();
-            }
-            if (Input.GetKeyDown(Key.B) || stopBeam)
-            {
-                BeamShot();
-            }
+            //}
+            //if (Input.GetKeyDown(Key.B) || stopBeam)
+            //{
+            //    BeamShot();
+            //}
         }
 
         public void GunShot()
         {
             xSpeed = xSpeed + 25;
-            pistolBullet.x = xSpeed;
+            pistolBullet.x = _player.x + xSpeed;
             Console.WriteLine(pistolBullet.x);
             //Check collision with an object.
-            if (pistolBullet.HitTest(hitWall))
+            /*if (pistolBullet.HitTest(hitWall))
             {
                 hitWall.Destroy();
-                pistolBullet.SetXY(0, game.height / 2);
+                pistolBullet.SetXY(_player.x, _player.y);
                 xSpeed = 0;
                 stopShot = false;
             }
-            else if (pistolBullet.x < game.width)
+            else*/
+            if (pistolBullet.x < game.width)
             {
                 stopShot = true;
             }
             else
             {
-                pistolBullet.SetXY(0, game.height / 2);
+                //pistolBullet.SetXY(_player.x, _player.y);
                 xSpeed = 0;
                 stopShot = false;
             }
@@ -77,6 +79,7 @@ namespace GXPEngine
             Sprite beam = DubstepBeam();
             xSpeed = xSpeed + 5;
             pistolBullet.x = xSpeed;
+            /*
             if (pistolBullet.HitTest(hitWall))
             {
                 hitWall.Destroy();
@@ -86,9 +89,9 @@ namespace GXPEngine
                 xSpeed = 0;
             }
             else
-            {
+            {*/
                 stopBeam = true;
-            }
+            //}
         }
 
         public Sprite DubstepBeam()
