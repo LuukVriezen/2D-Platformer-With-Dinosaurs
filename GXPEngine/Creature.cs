@@ -19,9 +19,14 @@ namespace GXPEngine
 
 		//Misc properties
 		protected CreatureState state;
-		public CreatureSprite sprite;
+		public AnimSprite sprite;
 		protected float preMoveX;
 		protected float preMoveY;
+
+		//Animation properties
+		protected Dictionary<CreatureState, int[]> animationFramesByState;
+		protected int[] currentAnimationFrames;
+		protected float currentAnimationFramesIndex;
 
 
 		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
@@ -38,9 +43,28 @@ namespace GXPEngine
 			this.terminalVelocity = terminalVelocity;
 			this.state = CreatureState.Idle;
 			this.sprite = null;
+			this.animationFramesByState = new Dictionary<CreatureState, int[]>();
+			this.currentAnimationFrames = new int[0];
+			this.currentAnimationFramesIndex = 0;
 		}
 
-		protected void SetSprite(CreatureSprite sprite)
+		protected virtual void UpdateCreatureState()
+		{
+			if(ySpeed != 0)
+			{
+				state = CreatureState.Jump;
+			}
+			else if(xSpeed != 0)
+			{
+				state = CreatureState.Walk;
+			}
+			else
+			{
+				state = CreatureState.Idle;
+			}
+		}
+
+		protected void SetSprite(AnimSprite sprite)
 		{
 			this.sprite = sprite;
 			this.AddChild(this.sprite);

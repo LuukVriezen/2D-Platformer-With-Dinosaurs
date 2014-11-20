@@ -9,7 +9,10 @@ namespace GXPEngine
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			//TEMP
-			SetSprite(new CreatureSprite("../../Assets/IMG/player32.png", 1, 1));
+			SetSprite(new AnimSprite("../../Assets/IMG/player32.png", 1, 1));
+			animationFramesByState.Add(CreatureState.Idle, new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8});
+			animationFramesByState.Add(CreatureState.Walk, new int[] {12, 13, 14, 15, 16, 17, 18, 19, 20});
+			animationFramesByState.Add(CreatureState.Jump, new int[] {24, 25, 26, 27, 28, 29});
 			//TEMPEND
 		}
 

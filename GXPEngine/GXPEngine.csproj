@@ -62,7 +62,6 @@
     <Compile Include="GXPEngine\SoundChannel.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="CreatureSprite.cs" />
     <Compile Include="CreatureState.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Platform.cs" />
