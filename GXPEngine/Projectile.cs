@@ -9,26 +9,37 @@ namespace GXPEngine
     {
         //Fields of Projectile
         float xSpeed = 0.0f;
-        float ySpeed = 0.0f;
-        int lengthOfBeam = 0;
-        int lengthOfPistol = 0;
-        int distance = 100;
+        //float ySpeed = 0.0f;
         bool stopBeam = false;
         bool stopShot = true;
-        Player _player;
+        private bool _isRight = true;
+        private Player _player;
+        //private Platform platform = new Platform();
         //delay
         //back by firing
+
+        //Pistol hight and width from the picture
+        int pistolHeight = 10;
+        int pistolWidth = 0;
         
         //Rainbow bullet en beam
         Sprite pistolBullet = new Sprite("../../Assets/IMG/bullit.png");
         //Hit test sprite
         //Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
 
-        public Projectile(Player player)
+        public Projectile(Player player, bool isRight)
         {
             AddChild(pistolBullet);
-            pistolBullet.SetXY(player.x, player.y);
+            if (isRight)
+            {
+                pistolBullet.SetXY(player.x + player.sprite.width, player.y + pistolHeight);
+            }
+            else
+            {
+                pistolBullet.SetXY(player.x - pistolBullet.width, player.y + pistolHeight);
+            }
             _player = player;
+            _isRight = isRight;
 
             //AddChild(hitWall);
             //hitWall.SetXY(game.width - hitWall.width - 200, game.height -hitWall.height);
@@ -49,9 +60,17 @@ namespace GXPEngine
 
         public void GunShot()
         {
-            xSpeed = xSpeed + 25;
-            pistolBullet.x = _player.x + xSpeed;
-            Console.WriteLine(pistolBullet.x);
+            if (_isRight)
+            {
+                xSpeed = xSpeed + 25;
+                pistolBullet.x = (_player.x + _player.sprite.width) + xSpeed;
+            }
+            else
+            {
+                xSpeed = xSpeed - 25;
+                pistolBullet.x = (_player.x - pistolBullet.width) + xSpeed;
+            }
+            //Console.WriteLine(pistolBullet.x);
             //Check collision with an object.
             /*if (pistolBullet.HitTest(hitWall))
             {

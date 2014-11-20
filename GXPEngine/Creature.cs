@@ -18,7 +18,7 @@ namespace GXPEngine
 
 		//Misc properties
 		private CreatureState state;
-		private CreatureSprite sprite;
+		public CreatureSprite sprite;
 		private float preMoveX;
 		private float preMoveY;
 

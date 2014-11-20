@@ -10,7 +10,7 @@ namespace GXPEngine
 		public MyGame () : base(640, 480, false)
 		{
 			this.AddChild(new Level());
-			//this.AddChild(new Projectile());
+			//this.AddChild(new Collectable());
 		}
 		
 		void Update () {

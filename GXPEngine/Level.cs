@@ -32,9 +32,9 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 0 }
+				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
+				{ 0, 0, 0, 0, 4, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1 }
 			};
 			//TEMPEND
 			
@@ -58,6 +58,19 @@ namespace GXPEngine
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;
+
+                        case 3:
+                            Collectable collectable = new Collectable();
+                            collectable.treasure.SetXY(x * tileSize, y * tileSize);
+                            this.AddChild(collectable.treasure);
+							break;
+
+                      
+                        case 5:
+                            Enemy enemy = new Enemy(0.1f, 2, 0.8f, 1.5f);
+                            enemy.SetXY(x * tileSize, y * tileSize);
+                            this.AddChild(enemy);
+                            break;
 
 						default:
 							break;

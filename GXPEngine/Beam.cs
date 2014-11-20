@@ -8,8 +8,6 @@ namespace GXPEngine
     class Beam : Sprite
     {
         int beam = 50;
-        //'Til the end of the screen
-        int length = 0;
 
         public Beam() : base("../../Assets/IMG/bullit.png")
         {

@@ -4,7 +4,8 @@ namespace GXPEngine
 {
 	public class Player : Creature
 	{
-        Projectile projectile;
+        private Projectile projectile;
+        private bool isFacingRight = true;
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			//TEMP
@@ -17,11 +18,13 @@ namespace GXPEngine
 			if(Input.GetKey(Key.RIGHT))
 			{
 				xSpeed = walkSpeed;
+                isFacingRight = true;
 			}
 			else
 			if(Input.GetKey(Key.LEFT))
 			{
 				xSpeed = -walkSpeed;
+                isFacingRight = false;
 			}
 			else
 			{
@@ -54,8 +57,17 @@ namespace GXPEngine
         {
             if (Input.GetKeyDown(Key.P))
             {
-                projectile = new Projectile(this);
-                parent.AddChild(projectile);
+                if (isFacingRight)
+                {
+                    projectile = new Projectile(this, true);
+                    parent.AddChild(projectile);
+                }
+                else
+                {
+                    projectile = new Projectile(this, false);
+                    parent.AddChild(projectile);
+                }
+
             }
         }
 	}

@@ -37,7 +37,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beam.cs" />
-    <Compile Include="GXPEngine\Collectable.cs" />
+    <Compile Include="Collectable.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Game.cs" />
