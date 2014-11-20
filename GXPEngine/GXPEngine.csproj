@@ -37,8 +37,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beam.cs" />
-    <Compile Include="Collectable.cs" />
-    <Compile Include="Enemy.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Game.cs" />
@@ -70,6 +68,8 @@
     <Compile Include="Platform.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="TileObject.cs" />
+    <Compile Include="Collectable.cs" />
+    <Compile Include="Enemy.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>

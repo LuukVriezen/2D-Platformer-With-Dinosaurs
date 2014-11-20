@@ -18,10 +18,10 @@ namespace GXPEngine
 		private float terminalVelocity; //The maximum speed to reach through gravity
 
 		//Misc properties
-		private CreatureState state;
+		protected CreatureState state;
 		public CreatureSprite sprite;
-		private float preMoveX;
-		private float preMoveY;
+		protected float preMoveX;
+		protected float preMoveY;
 
 
 		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
@@ -122,11 +122,17 @@ namespace GXPEngine
 			preMoveX = this.x;
 			preMoveY = this.y;
 
-			Move(xSpeed * Time.deltaTime, ySpeed * Time.deltaTime);
+			float collisionChecksPerFrame = 10;
 
-			//grounded is false unless proven true in collisions
-			grounded = false;
-			CheckCollisions();
+			for(int i = 0; i < collisionChecksPerFrame; i++)
+			{
+				Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
+					(ySpeed * Time.deltaTime) / collisionChecksPerFrame);
+
+				//grounded is false unless proven true in collisions
+				grounded = false;
+				CheckCollisions();
+			}
 		}
 	}
 }

@@ -42,7 +42,31 @@ namespace GXPEngine
 
 		protected override void CheckCollisions()
 		{
-			base.CheckCollisions();
+			TileObject[] collidableObjects = getParentLevel().GetTileObjectsInTiles(GetOccupyingTiles());
+
+			foreach(TileObject collidableObject in collidableObjects)
+			{
+				if(sprite.HitTest(collidableObject.sprite))
+				{
+					if(collidableObject is Platform)
+					{
+						Platform platform = collidableObject as Platform;
+
+						//Push Up
+						if(preMoveY < y && y + sprite.height < platform.y + platform.sprite.height && y + sprite.height > platform.y)
+						{
+							y -= (y + sprite.height) - platform.y;
+							ySpeed = 0;
+							grounded = true;
+						}
+					}
+					else if(collidableObject is Collectable)
+					{
+						getParentLevel().score += (collidableObject as Collectable).TreasurePoints();
+						getParentLevel().RemoveChild(collidableObject);
+					}
+				}
+			}
 		}
 
 		new void Update()

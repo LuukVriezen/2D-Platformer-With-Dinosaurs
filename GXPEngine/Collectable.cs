@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace GXPEngine
 {
-    class Collectable : GameObject
+	class Collectable : TileObject
     {
-        public Sprite treasure = new Sprite("../../Assets/IMG/treasure.png");
-        //public Sprite rum = new Sprite("../../Assets/IMG/rum.png");
         Random random = new Random();
         int score = 0;
         
-        public Collectable()
+		public Collectable(Point tileCoordinates) : base(tileCoordinates)
         {
-            
+            //TEMP
+			SetSprite(new Sprite("../../Assets/IMG/treasure.png"));
+			//TEMPEND
         }
 
         void Update()

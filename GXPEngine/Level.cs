@@ -4,12 +4,13 @@ using System.Collections.Generic;
 
 namespace GXPEngine
 {
-	public class Level : GameObject
+	public class Level : Canvas
 	{
 		private int[,] tileData;
 		public int tileSize;
+		public int score;
 
-		public Level(/*Temporarily disabled: int tilesX, int tilesY*/)
+		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height) : base(width, height)
 		{
 			//Set default values
 			tileSize = 32;
@@ -28,12 +29,12 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
-				{ 0, 0, 0, 0, 4, 3, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+				{ 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1 }
 			};
 			//TEMPEND
@@ -59,10 +60,10 @@ namespace GXPEngine
 							this.AddChild(player);
 							break;
 
-                        case 3:
-                            Collectable collectable = new Collectable();
-                            collectable.treasure.SetXY(x * tileSize, y * tileSize);
-                            this.AddChild(collectable.treasure);
+						case 3:
+							Collectable collectable = new Collectable(new Point(x, y));
+							collectable.SetXY(x * tileSize, y * tileSize);
+                            this.AddChild(collectable);
 							break;
 
                       
@@ -91,6 +92,11 @@ namespace GXPEngine
 				}
 			}
 			return tileObjects.ToArray();
+		}
+
+		void Update()
+		{
+			Console.WriteLine("Score: {0}", score);
 		}
 	}
 }
