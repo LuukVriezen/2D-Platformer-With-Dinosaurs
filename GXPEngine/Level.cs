@@ -8,11 +8,8 @@ namespace GXPEngine
 	{
 		private int[,] tileData;
 		public int tileSize;
-<<<<<<< HEAD
         Player player;
-=======
 		public int score;
->>>>>>> origin/master
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height) : base(width, height)
 		{
@@ -32,24 +29,15 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-<<<<<<< HEAD
 				{ 0, 10, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 13, 0, 0, 0, 0, 0 },
-=======
-				{ 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0 },
->>>>>>> origin/master
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
-<<<<<<< HEAD
 				{ 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 }
-=======
-				{ 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1 }
->>>>>>> origin/master
 			};
 			//TEMPEND
 			
@@ -168,12 +156,12 @@ namespace GXPEngine
 			}
 			return tileObjects.ToArray();
 		}
-
-<<<<<<< HEAD
         void Update()
         {
             ShakeShot();
             Scrolling();
+
+            Console.WriteLine("Score: {0}", score);
         }
 
         public void Scrolling()
@@ -204,12 +192,6 @@ namespace GXPEngine
         {
             
         }
-=======
-		void Update()
-		{
-			Console.WriteLine("Score: {0}", score);
-		}
->>>>>>> origin/master
 	}
 }
 
