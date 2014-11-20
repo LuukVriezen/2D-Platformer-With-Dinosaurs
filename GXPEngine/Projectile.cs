@@ -89,6 +89,7 @@ namespace GXPEngine
                 //pistolBullet.SetXY(_player.x, _player.y);
                 xSpeed = 0;
                 stopShot = false;
+                pistolBullet.Destroy();
             }
 
         }
