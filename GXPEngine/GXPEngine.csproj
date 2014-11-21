@@ -69,6 +69,7 @@
     <Compile Include="TileObject.cs" />
     <Compile Include="Collectable.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Lava.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>

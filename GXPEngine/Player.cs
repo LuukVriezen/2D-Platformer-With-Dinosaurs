@@ -31,7 +31,7 @@ namespace GXPEngine
 			}
 			else
 			{
-				xSpeed = 0;
+				xSpeed *= 0.8f;
 			}
 		}
 
@@ -74,6 +74,14 @@ namespace GXPEngine
 
 		new void Update()
 		{
+			if(!isFacingRight)
+			{
+				sprite.Mirror(true, false);
+			}
+			else
+			{
+				sprite.Mirror(false, false);
+			}
 			CheckMovementInput();
 			CheckJumpInput();
             Shoot();

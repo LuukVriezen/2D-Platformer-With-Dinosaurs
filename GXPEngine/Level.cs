@@ -43,6 +43,11 @@ namespace GXPEngine
 			FillLevel();
 		}
 
+		protected MyGame getParentMyGame()
+		{
+			return parent as MyGame;
+		}
+
 		public void FillLevel()
 		{
 			for (int x = 0; x < tileData.GetLength(1); x++) {
@@ -56,7 +61,7 @@ namespace GXPEngine
 							break;
 
 						case 2:
-							player = new Player(0.1f, 2, 0.8f, 1.5f);
+							player = new Player(0.1f, 2, 0.6f, 1.3f);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;
@@ -98,7 +103,7 @@ namespace GXPEngine
                             break;
                         //Lava Tiles
                         case 15:
-                            Platform platform15 = new Platform(new Point(x, y));
+							Lava platform15 = new Lava(new Point(x, y));
                             platform15.SetXY(x * tileSize, y * tileSize);
                             platform15.SetSprite(new Sprite("../../Assets/IMG/32Lava.png"));
                             this.AddChild(platform15);
