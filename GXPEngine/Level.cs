@@ -9,20 +9,20 @@ namespace GXPEngine
 		private int[,] tileData;
 		public int tileSize;
         Player player;
-		public int score;
+        public int score;
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height) : base(width, height)
 		{
-			//Set default values
-			tileSize = 32;
+                //Set default values
+                tileSize = 32;
 
-			//Temporarily disabled: tileData = new int[tilesX, tilesY];
+                //Temporarily disabled: tileData = new int[tilesX, tilesY];
 
-			//TEMP
-			//0 = nothing
-			//1 = platform
-			//2 = player
-			tileData = new int[,] {
+                //TEMP
+                //0 = nothing
+                //1 = platform
+                //2 = player
+                tileData = new int[,] {
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -38,9 +38,14 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 }
 			};
-			//TEMPEND
-			
-			FillLevel();
+                //TEMPEND
+
+                FillLevel();
+		}
+
+		protected MyGame getParentMyGame()
+		{
+			return parent as MyGame;
 		}
 
 		public void FillLevel()
@@ -56,7 +61,7 @@ namespace GXPEngine
 							break;
 
 						case 2:
-							player = new Player(0.1f, 2, 0.8f, 1.5f);
+							player = new Player(0.1f, 2, 0.6f, 1.3f);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;
@@ -98,7 +103,7 @@ namespace GXPEngine
                             break;
                         //Lava Tiles
                         case 15:
-                            Platform platform15 = new Platform(new Point(x, y));
+							Lava platform15 = new Lava(new Point(x, y));
                             platform15.SetXY(x * tileSize, y * tileSize);
                             platform15.SetSprite(new Sprite("../../Assets/IMG/32Lava.png"));
                             this.AddChild(platform15);
