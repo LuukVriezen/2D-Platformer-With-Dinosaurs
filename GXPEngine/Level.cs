@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace GXPEngine
 {
@@ -46,6 +47,16 @@ namespace GXPEngine
 		protected MyGame getParentMyGame()
 		{
 			return parent as MyGame;
+		}
+
+		public void LoadTileData(string fileName)
+		{
+			XmlDocument document = new XmlDocument();
+			document.Load("../../Levels/" + fileName);
+			XmlElement root = document.DocumentElement;
+
+			width = root.HasAttribute("width") ? Convert.ToInt16(root.GetAttribute("width")) : 0;
+			height = root.HasAttribute("height") ? Convert.ToInt16(root.GetAttribute("height")) : 0;
 		}
 
 		public void FillLevel()
