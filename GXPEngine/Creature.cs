@@ -143,6 +143,8 @@ namespace GXPEngine
 		{
 			ApplyGravity();
 
+            GameBoundries();
+
 			preMoveX = this.x;
 			preMoveY = this.y;
 
@@ -158,6 +160,16 @@ namespace GXPEngine
 				CheckCollisions();
 			}
 		}
+
+        private void GameBoundries()
+        {
+            x = x + xSpeed;
+            if (x < 0) x = 0;
+            if (x > game.width - sprite.width) x = game.width - sprite.width;
+            y = y + ySpeed;
+            if (y < 0) y = 0;
+            if (y > game.height - sprite.height) y = game.height - sprite.height;
+        }
 	}
 }
 

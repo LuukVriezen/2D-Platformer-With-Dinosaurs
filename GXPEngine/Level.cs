@@ -180,14 +180,14 @@ namespace GXPEngine
                 {
                     x = 100 - player.x;
                 }
-                if (player.y + x > 300)
-                {
-                    y = 300 - player.y;
-                }
-                if (player.x + x < 100)
-                {
-                    y = 100 - player.y;
-                }
+                //if (player.y + x > 300)
+                //{
+                //    y = 300 - player.y;
+                //}
+                //if (player.x + x < 100)
+                //{
+                //    y = 100 - player.y;
+                //}
             }
         }
 
