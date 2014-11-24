@@ -12,6 +12,8 @@ namespace GXPEngine
         public int score;
 		private LevelReader reader;
 
+
+
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
             //Set default values
@@ -153,10 +155,9 @@ namespace GXPEngine
 		}
         void Update()
         {
-            ShakeShot();
             Scrolling();
 
-            Console.WriteLine("Score: {0}", score);
+            //Console.WriteLine("Score: {0}", score);
         }
 
         public void Scrolling()
@@ -171,21 +172,15 @@ namespace GXPEngine
                 {
                     x = 100 - player.x;
                 }
-                //if (player.y + x > 300)
+                //if (player.y + y > 200)
                 //{
-                //    y = 300 - player.y;
+                //    y = 200 - player.y;
                 //}
-                //if (player.x + x < 100)
+                //if (player.y + y < 200)
                 //{
-                //    y = 100 - player.y;
+                //    y = 200 - player.y;
                 //}
             }
-        }
-
-
-        public void ShakeShot()
-        {
-            
         }
 	}
 }
