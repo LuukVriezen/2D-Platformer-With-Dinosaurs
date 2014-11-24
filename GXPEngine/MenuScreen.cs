@@ -12,7 +12,7 @@ namespace GXPEngine
         {
             Canvas menuCanvas = new Canvas(game.width, game.height);
             menuCanvas.graphics.Clear(Color.Empty);
-            menuCanvas.graphics.DrawString("Insert coin to continue", new Font("Arial", 20), Brushes.White, new PointF((game.width/2) - 150, game.height / 2));
+            menuCanvas.graphics.DrawString("Insert coin(space) to continue", new Font("Arial", 20), Brushes.White, new PointF((game.width/2) - 200, game.height / 2));
             AddChild(menuCanvas);
         }
     }

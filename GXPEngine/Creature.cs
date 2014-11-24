@@ -163,12 +163,10 @@ namespace GXPEngine
 
         private void GameBoundries()
         {
-            x = x + xSpeed;
             if (x < 0) x = 0;
             if (x > game.width - sprite.width) x = game.width - sprite.width;
-            y = y + ySpeed;
-            if (y < 0) y = 0;
-            if (y > game.height - sprite.height) y = game.height - sprite.height;
+            ////if (y < 0) player.y = 0;
+            ////if (y > game.height - player.sprite.height) player.y = game.height - player.sprite.height;
         }
 	}
 }
