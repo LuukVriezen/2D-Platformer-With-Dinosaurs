@@ -29,7 +29,7 @@ namespace GXPEngine
         int pistolWidth = 0;
 
         int shakeLength = 200;
-        int minShakeLength = -500;
+        int minShakeLength = -10;
 
         float pistolStart;
         
@@ -79,28 +79,16 @@ namespace GXPEngine
         public void ShakeShot()
         {
             Random random = new Random();
-            Console.WriteLine("PistolStart: " + pistolStart);
-            Console.WriteLine("shakeLength: " + shakeLength);
-            Console.WriteLine("pistolBullet: " + pistolBullet.x);
             if (notDoneYet)
             {
-                if (!(pistolBullet.x < 0) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)pistolBullet.x)))
+                if (!(pistolBullet.x < 0) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)pistolBullet.x)) || _isRight == false && (pistolStart - shakeLength) < pistolBullet.x)
                 {
-                    _player.getParentLevel().x = random.Next(-25, 25);
-                    _player.getParentLevel().y = random.Next(-25, 25);
+                    _player.getParentLevel().x = _player.getParentLevel().x + random.Next(-10, 10);
+                    _player.getParentLevel().y = _player.getParentLevel().y + random.Next(-10, 10);
+
                     stopShot = true;
                     notDoneYet = true;
                 }
-                else if (pistolBullet.x < 0)
-                {
-                    
-                }
-                //else if ((Enumerable.Range((int)pistolStart, minShakeLength).Contains((int)pistolBullet.x)))
-                //{
-                //    _player.getParentLevel().x = random.Next(-25, 25);
-                //    _player.getParentLevel().y = random.Next(-25, 25);
-                //    stopShot = true;
-                //}
                 else
                 {
                     _player.getParentLevel().x = originX;
