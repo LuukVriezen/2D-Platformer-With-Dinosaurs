@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace GXPEngine
 {
@@ -28,18 +29,6 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0 },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                { 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 10, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 11, 13, 0, 0, 0, 0, 0 },
@@ -48,10 +37,7 @@ namespace GXPEngine
 				{ 0, 0, 0, 0, 0, 0, 10, 11, 12, 11, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 				{ 0, 0, 0, 0, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 },
-				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 },
 				{ 20, 21, 22, 23, 21, 22, 23, 24, 15, 15, 15, 20, 21, 23, 24, 15, 20, 23, 21, 24 }
-
 			};
                 //TEMPEND
 
@@ -61,6 +47,16 @@ namespace GXPEngine
 		protected MyGame getParentMyGame()
 		{
 			return parent as MyGame;
+		}
+
+		public void LoadTileData(string fileName)
+		{
+			XmlDocument document = new XmlDocument();
+			document.Load("../../Levels/" + fileName);
+			XmlElement root = document.DocumentElement;
+
+			width = root.HasAttribute("width") ? Convert.ToInt16(root.GetAttribute("width")) : 0;
+			height = root.HasAttribute("height") ? Convert.ToInt16(root.GetAttribute("height")) : 0;
 		}
 
 		public void FillLevel()
@@ -179,10 +175,8 @@ namespace GXPEngine
         {
             ShakeShot();
             Scrolling();
-            //GameBoundries();
-            Console.WriteLine(player.y);
 
-            //Console.WriteLine("Score: {0}", score);
+            Console.WriteLine("Score: {0}", score);
         }
 
         public void Scrolling()
@@ -193,18 +187,18 @@ namespace GXPEngine
                 {
                     x = 400 - player.x;
                 }
-                if (player.x + x < 200)
+                if (player.x + x < 100)
                 {
-                    x = 200 - player.x;
+                    x = 100 - player.x;
                 }
-                if (player.y + y > 200)
-                {
-                    y = 250 - player.y;
-                }
-                if (player.y + y < 200)
-                {
-                    y = 250 - player.y;
-                }
+                //if (player.y + x > 300)
+                //{
+                //    y = 300 - player.y;
+                //}
+                //if (player.x + x < 100)
+                //{
+                //    y = 100 - player.y;
+                //}
             }
         }
 
