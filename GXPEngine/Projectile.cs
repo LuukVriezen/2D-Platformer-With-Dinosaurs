@@ -81,7 +81,7 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
-            if (pistolBullet.x < game.width)
+            if (pistolBullet.x < _player.getParentLevel().width)
             {
                 stopShot = true;
             }
