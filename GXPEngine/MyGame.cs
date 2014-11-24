@@ -40,8 +40,12 @@ namespace GXPEngine
 
         void MakeLevel()
         {
-            level = new Level(640, 448);
+			//TEMP
+			int tileSize = 32;
+			LevelReader reader = new LevelReader(/*TEMP*/"level.tmx"/*TEMPEND*/);
+			level = new Level(reader.GetWidth() * tileSize, reader.GetHeight() * tileSize, tileSize, reader);
             this.AddChild(level);
+			//TEMPEND
 
             HUDCanvas = new Canvas(this.width, this.height);
             this.AddChild(HUDCanvas);

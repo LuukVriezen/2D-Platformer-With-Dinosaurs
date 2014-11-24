@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Collections.Generic;
 
@@ -143,7 +143,7 @@ namespace GXPEngine
 		{
 			ApplyGravity();
 
-            GameBoundries();
+            GameBoundaries();
 
 			preMoveX = this.x;
 			preMoveY = this.y;
@@ -161,12 +161,13 @@ namespace GXPEngine
 			}
 		}
 
-        private void GameBoundries()
+        private void GameBoundaries()
         {
             if (x < 0) x = 0;
-            if (x > game.width - sprite.width) x = game.width - sprite.width;
-            ////if (y < 0) player.y = 0;
-            ////if (y > game.height - player.sprite.height) player.y = game.height - player.sprite.height;
+			if (x > getParentLevel().width - sprite.width) x = getParentLevel().width - sprite.width;
+            y = y + ySpeed;
+            if (y < 0) y = 0;
+			if (y > getParentLevel().height - sprite.height) y = getParentLevel().height - sprite.height;
         }
 	}
 }
