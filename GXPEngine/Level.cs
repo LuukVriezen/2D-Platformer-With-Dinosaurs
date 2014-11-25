@@ -156,6 +156,7 @@ namespace GXPEngine
         void Update()
         {
             Scrolling();
+            GameOver();
         }
 
         public void Scrolling()
@@ -179,6 +180,24 @@ namespace GXPEngine
                 //    y = 200 - player.y;
                 //}
             }
+        }
+
+        public void GameOver()
+        {
+            if (Input.GetKeyDown(Key.D))
+            {
+                this.Destroy();
+                GameOver gameover = new GameOver();
+                if (Input.GetKeyDown(Key.Q))
+                {
+                    
+                }
+            }
+            else
+            {
+                //continue;
+            }
+
         }
 	}
 }

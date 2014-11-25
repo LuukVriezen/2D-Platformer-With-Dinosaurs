@@ -79,9 +79,11 @@ namespace GXPEngine
         public void ShakeShot()
         {
             Random random = new Random();
+
             if (notDoneYet)
             {
-                if (!(pistolBullet.x < 0) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)pistolBullet.x)) || _isRight == false && (pistolStart - shakeLength) < pistolBullet.x)
+
+                if (!(pistolBullet.x < 0) && !(pistolBullet.x > _player.getParentLevel().width) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)pistolBullet.x)) || _isRight == false && (pistolStart - shakeLength) < pistolBullet.x)
                 {
                     _player.getParentLevel().x = _player.getParentLevel().x + random.Next(-10, 10);
                     _player.getParentLevel().y = _player.getParentLevel().y + random.Next(-10, 10);
