@@ -60,70 +60,70 @@ namespace GXPEngine
 						case 1:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32branches1.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches1.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 2:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32branches2.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches2.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 3:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32branches3.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches3.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 4:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32branches4.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches4.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 5:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32ground1.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground1.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 6:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32ground2.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground2.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 7:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32ground3.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground3.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 8:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32ground4.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground4.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 9:
 							platform = new Platform(new Point(x, y));
 							platform.SetXY(x * tileSize, y * tileSize);
-							platform.SetSprite(new Sprite("../../Assets/IMG/32ground5.png"));
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground5.png", 1, 1));
 							this.AddChild(platform);
 							break;
 
 						case 10:
 							lava = new Lava(new Point(x, y));
 							lava.SetXY(x * tileSize, y * tileSize);
-							lava.SetSprite(new Sprite("../../Assets/IMG/32Lava.png"));
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32Lava.png", 1, 1));
 							this.AddChild(lava);
 							break;
 
@@ -146,18 +146,32 @@ namespace GXPEngine
 			}
 		}
 
-		public TileObject[] GetTileObjectsInTiles(Point[] tiles)
+		public SpriteObject[] GetCollidableObjectsInTiles(Point[] tiles)
 		{
-			List<TileObject> tileObjects = new List<TileObject>();
+			List<SpriteObject> collidableObjects = new List<SpriteObject>();
 			List<GameObject> children = GetChildren();
 			foreach(GameObject child in children)
 			{
-				if(child is TileObject && Array.IndexOf(tiles, (child as TileObject).tileCoordinates) != -1)
+				if(child is SpriteObject)
 				{
-					tileObjects.Add(child as TileObject);
+					if(child is TileObject && Array.IndexOf(tiles, (child as TileObject).tileCoordinates) != -1)
+					{
+						collidableObjects.Add(child as SpriteObject);
+					}
+					else
+					if(child is Enemy)
+					{
+						foreach(Point occupyingTile in (child as Enemy).GetOccupyingTiles())
+						{
+							if(Array.IndexOf(tiles, occupyingTile) != -1)
+							{
+									collidableObjects.Add(child as SpriteObject);
+							}
+						}
+					}
 				}
 			}
-			return tileObjects.ToArray();
+			return collidableObjects.ToArray();
 		}
         void Update()
         {

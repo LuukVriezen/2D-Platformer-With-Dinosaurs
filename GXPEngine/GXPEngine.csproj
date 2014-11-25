@@ -74,6 +74,7 @@
     <Compile Include="CreatureState.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="LevelReader.cs" />
+    <Compile Include="SpriteObject.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>
