@@ -52,9 +52,9 @@ namespace GXPEngine
 
 		protected override void CheckCollisions()
 		{
-			TileObject[] collidableObjects = getParentLevel().GetTileObjectsInTiles(GetOccupyingTiles());
+			SpriteObject[] collidableObjects = getParentLevel().GetCollidableObjectsInTiles(GetOccupyingTiles());
 
-			foreach(TileObject collidableObject in collidableObjects)
+			foreach(SpriteObject collidableObject in collidableObjects)
 			{
 				if(sprite.HitTest(collidableObject.sprite))
 				{

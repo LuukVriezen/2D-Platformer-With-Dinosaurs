@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GXPEngine
 {
-	public class Creature : GameObject
+	public class Creature : SpriteObject
 	{
 		//Movement properties
 		protected float xSpeed; //The X distance to move in the current frame
@@ -117,9 +117,9 @@ namespace GXPEngine
 
 		protected virtual void CheckCollisions()
 		{
-			TileObject[] collidableObjects = getParentLevel().GetTileObjectsInTiles(GetOccupyingTiles());
+			SpriteObject[] collidableObjects = getParentLevel().GetCollidableObjectsInTiles(GetOccupyingTiles());
 
-			foreach(TileObject collidableObject in collidableObjects)
+			foreach(SpriteObject collidableObject in collidableObjects)
 			{
 				if(sprite.HitTest(collidableObject.sprite))
 				{
@@ -186,7 +186,7 @@ namespace GXPEngine
 
 				//grounded is false unless proven true in collisions
 				grounded = false;
-				CheckCollisions();
+				//CheckCollisions();
 			}
 		}
 

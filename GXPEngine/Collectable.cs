@@ -14,7 +14,7 @@ namespace GXPEngine
 		public Collectable(Point tileCoordinates) : base(tileCoordinates)
         {
             //TEMP
-			SetSprite(new Sprite("../../Assets/IMG/treasure.png"));
+			SetSprite(new AnimSprite("../../Assets/IMG/treasure.png", 1, 1));
 			//TEMPEND
         }
 
