@@ -15,6 +15,7 @@ namespace GXPEngine
         bool stopShot = true;
         private bool _isRight = true;
         private Player _player;
+        private Enemy _enemy;
 
         float originX = 0;
         float originY = 0;
@@ -38,18 +39,26 @@ namespace GXPEngine
         //Hit test sprite
         //Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
 
-        public Projectile(Player player, bool isRight)
+        public Projectile(Creature creature, bool isRight)
         {
             AddChild(pistolBullet);
+            if (creature is Player)
+            {
+                _player = (Player)creature;
+            }
+            else if (creature is Enemy)
+            {
+                _enemy = (Enemy)creature;
+            }
             if (isRight)
             {
-                pistolBullet.SetXY(player.x + player.sprite.width, player.y + pistolHeight);
+                pistolBullet.SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
             }
             else
             {
-                pistolBullet.SetXY(player.x - pistolBullet.width, player.y + pistolHeight);
+                pistolBullet.SetXY(creature.x - pistolBullet.width, creature.y + pistolHeight);
             }
-            _player = player;
+
             _isRight = isRight;
 
             pistolStart = pistolBullet.x;

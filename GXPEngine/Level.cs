@@ -203,6 +203,7 @@ namespace GXPEngine
 
         public void GameOver()
         {
+            //Back to the start anyways.
             if (Input.GetKeyDown(Key.D))
             {
                 AddChild(gameover);

@@ -8,6 +8,9 @@ namespace GXPEngine
         private bool isFacingRight = true;
 		public int score;
 		public int lives;
+
+        int shootDelay = 500;
+        int oldTime = 0;
         
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
@@ -92,7 +95,7 @@ namespace GXPEngine
 		{
             if (enabled)
             {
-                Console.WriteLine("ySpeed: {0}", ySpeed);
+                //Console.WriteLine("ySpeed: {0}", ySpeed);
                 if (!isFacingRight)
                 {
                     sprite.Mirror(true, false);
@@ -110,8 +113,9 @@ namespace GXPEngine
 
         private void Shoot()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.P) && Time.time > (oldTime + shootDelay))
             {
+                oldTime = Time.time;
                 if (isFacingRight)
                 {
                     projectile = new Projectile(this, true);
