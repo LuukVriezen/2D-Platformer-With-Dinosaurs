@@ -191,7 +191,7 @@ namespace GXPEngine
                     timer--;
                 }
             }
-                
+            
 
             Scrolling();
         }
@@ -234,20 +234,24 @@ namespace GXPEngine
                     (child as Creature).enabled = false;
                 }
             }
-            if (Input.GetKeyDown(Key.Y))
-            {
-                foreach (GameObject child in children)
-                {
-                    if (child is Creature)
-                    {
-                        (child as Creature).enabled = true;
-                    }
-                }
-                gameover.Destroy();
-            }
             if (timer == 0)
             {
-                //herstart game
+                getParentMyGame().restartLevel = true;
+                this.Destroy();
+            }
+            else if(timer <0)
+            {
+                MenuScreen menuScreen = new MenuScreen();
+                AddChild(menuScreen);
+
+                if (Input.GetKeyDown(Key.SPACE))
+                {
+                    menuScreen.Destroy();
+                    int tileSize = 32;
+                    LevelReader reader = new LevelReader(/*TEMP*/"level.tmx"/*TEMPEND*/);
+                    Level level = new Level(reader.GetWidth() * tileSize, reader.GetHeight() * tileSize, tileSize, reader);
+                    this.AddChild(level);
+                }
             }
         }
 	}

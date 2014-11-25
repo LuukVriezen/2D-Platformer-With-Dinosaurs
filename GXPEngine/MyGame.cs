@@ -8,12 +8,14 @@ namespace GXPEngine
 	public class MyGame : Game
 	{	
 		HUD HUDCanvas;
-		Level level;
+        Level level;
+        MenuScreen menuScreen;
+        MessageBox messageBox;
 
         bool isPressed = false;
         bool makeLevel = true;
-        MenuScreen menuScreen;
-        MessageBox messageBox;
+
+        public bool restartLevel = false;
 
 		public MyGame () : base(640, 480, false)
 		{
@@ -34,6 +36,11 @@ namespace GXPEngine
                     menuScreen.Destroy();
                 }
                 isPressed = true;
+                if (restartLevel)
+                {
+                    level.player.score = 0;
+                    level.player.lives = 3;
+                }
                 HUDCanvas.Score(level.player.score);
                 HUDCanvas.Lives(level.player.lives);
                 messageBox.Message();
@@ -53,7 +60,6 @@ namespace GXPEngine
 			level = new Level(reader.GetWidth() * tileSize, reader.GetHeight() * tileSize, tileSize, reader);
             this.AddChild(level);
 			//TEMPEND
-
         }
 
 		static void Main() {
