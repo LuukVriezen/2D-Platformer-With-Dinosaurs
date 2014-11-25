@@ -11,7 +11,7 @@ namespace GXPEngine
         public Player player;
 		private LevelReader reader;
 
-
+        bool isContinue = false;
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -162,7 +162,12 @@ namespace GXPEngine
         void Update()
         {
             Scrolling();
-            GameOver();
+
+           
+            if (Input.GetKeyDown(Key.D) || isContinue)
+            {
+                //GameOver();
+            }
         }
 
         public void Scrolling()
@@ -190,19 +195,9 @@ namespace GXPEngine
 
         public void GameOver()
         {
-            if (Input.GetKeyDown(Key.D))
-            {
-                this.Destroy();
-                GameOver gameover = new GameOver();
-                if (Input.GetKeyDown(Key.Q))
-                {
-                    
-                }
-            }
-            else
-            {
-                //continue;
-            }
+            GameOver gameover = new GameOver();
+            parent.AddChild(gameover);
+            getParentMyGame().DestroyLevel();
 
         }
 	}

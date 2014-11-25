@@ -39,7 +39,7 @@ namespace GXPEngine
             }
 		}
 
-        void MakeLevel()
+        public void MakeLevel()
         {
 			//TEMP
 			int tileSize = 32;
@@ -50,6 +50,13 @@ namespace GXPEngine
 
             HUDCanvas = new Canvas(this.width, this.height);
             this.AddChild(HUDCanvas);
+        }
+
+        public void DestroyLevel()
+        {
+            level.Destroy();
+            makeLevel = false;
+            Update();
         }
 
 
