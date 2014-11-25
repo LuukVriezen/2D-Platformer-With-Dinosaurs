@@ -6,8 +6,14 @@ namespace GXPEngine
 	{
         private Projectile projectile;
         private bool isFacingRight = true;
+		public int score;
+		public int lives;
+
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
+			score = 0;
+			lives = 3;
+
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
 			animationFramesByState.Add(CreatureState.Idle, new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8});
@@ -64,11 +70,14 @@ namespace GXPEngine
 							grounded = true;
 						}
 					}
-					else
-					if(collidableObject is Collectable)
+					else if(collidableObject is Collectable)
 					{
-						getParentLevel().score += (collidableObject as Collectable).TreasurePoints();
+						getParentLevel().player.score += (collidableObject as Collectable).TreasurePoints();
 						getParentLevel().RemoveChild(collidableObject);
+					}
+					else if(collidableObject is Lava)
+					{
+						getParentLevel().GameOver();
 					}
 				}
 				else
@@ -112,6 +121,18 @@ namespace GXPEngine
 
             }
         }
+
+		private void SubtractLife()
+		{
+			if(lives > 1)
+			{
+				lives--;
+			}
+			else
+			{
+				getParentLevel().GameOver();
+			}
+		}
 	}
 }
 

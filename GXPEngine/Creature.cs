@@ -167,14 +167,17 @@ namespace GXPEngine
 
 			ApplyAnimation();
 
-			ApplyGravity();
+			if(!grounded)
+			{
+				ApplyGravity();
+			}
 
             GameBoundaries();
 
 			preMoveX = this.x;
 			preMoveY = this.y;
 
-			float collisionChecksPerFrame = 10;
+			float collisionChecksPerFrame = 3;
 
 			for(int i = 0; i < collisionChecksPerFrame; i++)
 			{
