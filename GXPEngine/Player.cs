@@ -8,15 +8,23 @@ namespace GXPEngine
         private bool isFacingRight = true;
 		public int score;
 		public int lives;
+		private bool invincible;
+		private int invincibleMillisecondLimit;
+		private int invincibleMillisecondCounter;
+		private int blinkLimit;
+		private int blinkCounter;
+		private bool transparent;
 
-        int shootDelay = 500;
-        int oldTime = 0;
-        
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
 			lives = 3;
-            enabled = true;
+			invincible = false;
+			invincibleMillisecondLimit = 2000;
+			invincibleMillisecondCounter = 0;
+			blinkLimit = 100;
+			blinkCounter = blinkLimit;
+			transparent = false;
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
@@ -60,7 +68,18 @@ namespace GXPEngine
 
 			foreach(SpriteObject collidableObject in collidableObjects)
 			{
-				if(sprite.HitTest(collidableObject.sprite))
+				bool hitTest;
+
+				if(collidableObject is Enemy)
+				{
+					hitTest = sprite.HitTest((collidableObject as Enemy).sprite);
+				}
+				else
+				{
+					hitTest = sprite.HitTest(collidableObject.sprite);
+				}
+
+				if(hitTest)
 				{
 					if(collidableObject is Platform)
 					{
@@ -83,39 +102,72 @@ namespace GXPEngine
 					{
 						getParentLevel().GameOver();
 					}
-				}
-				else
-				{
+					else if(collidableObject is Enemy)
+					{
+						SubtractLife();
 
+					}
 				}
+			}
+		}
+
+		private void UpdateInvincibility()
+		{
+			if(invincible && invincibleMillisecondCounter <= invincibleMillisecondLimit)
+			{
+				invincibleMillisecondCounter += Time.deltaTime;
+			}
+			else
+			{
+				invincible = false;
+				invincibleMillisecondCounter = 0;
+				blinkCounter = blinkLimit;
+				transparent = false;
+				sprite.alpha = 1;
+			}
+		}
+
+		public void Blink()
+		{
+			if(blinkCounter <= blinkLimit)
+			{
+				blinkCounter += Time.deltaTime;
+			}
+			else
+			{
+				transparent = !transparent;
+				sprite.alpha = transparent ? 0.3f : 1;
+				blinkCounter = 0;
 			}
 		}
 
 		new void Update()
 		{
-            if (enabled)
-            {
-                //Console.WriteLine("ySpeed: {0}", ySpeed);
-                if (!isFacingRight)
-                {
-                    sprite.Mirror(true, false);
-                }
-                else
-                {
-                    sprite.Mirror(false, false);
-                }
-                CheckMovementInput();
-                CheckJumpInput();
-                Shoot();
-                base.Update();
-            }
+			UpdateInvincibility();
+			if(invincible)
+			{
+				Blink();
+			}
+
+			Console.WriteLine("invincible: {0}", invincible);
+			if(!isFacingRight)
+			{
+				sprite.Mirror(true, false);
+			}
+			else
+			{
+				sprite.Mirror(false, false);
+			}
+			CheckMovementInput();
+			CheckJumpInput();
+            Shoot();
+			base.Update();
 		}
 
         private void Shoot()
         {
-            if (Input.GetKeyDown(Key.P) && Time.time > (oldTime + shootDelay))
+            if (Input.GetKeyDown(Key.P))
             {
-                oldTime = Time.time;
                 if (isFacingRight)
                 {
                     projectile = new Projectile(this, true);
@@ -132,13 +184,17 @@ namespace GXPEngine
 
 		private void SubtractLife()
 		{
-			if(lives > 1)
+			if(!invincible)
 			{
 				lives--;
-			}
-			else
-			{
-				getParentLevel().GameOver();
+				if(lives > 0)
+				{
+					invincible = true;
+				}
+				else
+				{
+					getParentLevel().GameOver();
+				}
 			}
 		}
 	}
