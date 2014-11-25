@@ -12,6 +12,9 @@ namespace GXPEngine
 		private LevelReader reader;
         GameOver gameover;
         int timer = 10;
+        public bool isGameOver;
+        int oldtime = 0;
+        int seconds = 10000;
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -175,6 +178,21 @@ namespace GXPEngine
 		}
         void Update()
         {
+            if (isGameOver)
+            {
+                if (Time.now > (oldtime + 1000))
+                {
+                    if (timer < 10)
+                    {
+                        gameover.Destroy();
+                    }
+                    oldtime = Time.now;
+                    GameOver(timer);
+                    timer--;
+                }
+            }
+                
+
             Scrolling();
         }
 
@@ -200,7 +218,8 @@ namespace GXPEngine
                 }
             }
 		}
-        public void GameOver()
+
+        private void GameOver(int timer)
         {
             //Back to the start anyways.
             gameover = new GameOver(timer);
@@ -226,13 +245,9 @@ namespace GXPEngine
                 }
                 gameover.Destroy();
             }
-            if (timer > 0)
+            if (timer == 0)
             {
-                gameover.Destroy();
-                timer--;
-            }
-            else
-            {
+                //herstart game
             }
         }
 	}

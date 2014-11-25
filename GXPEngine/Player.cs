@@ -107,7 +107,7 @@ namespace GXPEngine
 					}
 					else if(collidableObject is Lava)
 					{
-                            getParentLevel().GameOver();
+                        getParentLevel().isGameOver = true;
 					}
 					else if(collidableObject is Enemy)
 					{
@@ -209,7 +209,7 @@ namespace GXPEngine
 				}
 				else
 				{
-					getParentLevel().GameOver();
+					//getParentLevel().GameOver();
 				}
 			}
 		}

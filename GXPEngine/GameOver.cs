@@ -10,10 +10,10 @@ namespace GXPEngine
     {
         public GameOver(int counter)
         {
-            Canvas menuCanvas = new Canvas(game.width, game.height);
-            menuCanvas.graphics.Clear(Color.Empty);
-            menuCanvas.graphics.DrawString("Game Over \nTry Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200, game.height / 2));
-            AddChild(menuCanvas);
+            Canvas gameOverCanvas = new Canvas(game.width, game.height);
+            gameOverCanvas.graphics.Clear(Color.Empty);
+            gameOverCanvas.graphics.DrawString("Game Over \nTry Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200, game.height / 2));
+            AddChild(gameOverCanvas);
         }
     }
 }
