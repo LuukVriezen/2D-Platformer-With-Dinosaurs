@@ -8,8 +8,7 @@ namespace GXPEngine
 	{
 		private int[,] tileData;
 		public int tileSize;
-        private Player player;
-        public int score;
+        public Player player;
 		private LevelReader reader;
 
 
@@ -55,6 +54,7 @@ namespace GXPEngine
 				{
 					Platform platform;
 					Lava lava;
+					Enemy enemy;
 					switch(tileData[y, x])
 					{
 						case 1:
@@ -131,6 +131,12 @@ namespace GXPEngine
 							player = new Player(0.1f, 2, 0.25f, 1.3f);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
+							break;
+
+						case 12:
+							enemy = new Enemy(0.1f, 2, 0.25f, 1.3f);
+							enemy.SetXY(x * tileSize, y * tileSize);
+							this.AddChild(enemy);
 							break;
 
 						default:

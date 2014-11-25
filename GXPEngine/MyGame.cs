@@ -33,7 +33,8 @@ namespace GXPEngine
                     menuScreen.Destroy();
                 }
                 HUDCanvas.graphics.Clear(Color.Transparent);
-                HUDCanvas.graphics.DrawString("Score: " + level.score, new Font("Arial", 20), Brushes.White, new PointF(20, 20));
+				HUDCanvas.graphics.DrawString("Score: " + level.player.score, new Font("Arial", 20), Brushes.White, new PointF(20, 20));
+				HUDCanvas.graphics.DrawString("Lives: " + level.player.lives, new Font("Arial", 20), Brushes.White, new PointF(20, 60));
                 isPressed = true;
             }
 		}

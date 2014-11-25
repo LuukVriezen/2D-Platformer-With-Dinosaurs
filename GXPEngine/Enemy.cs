@@ -12,11 +12,14 @@ namespace GXPEngine
         public Enemy(float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
         {
 			SetSprite(new AnimSprite("../../Assets/IMG/Ninjalien.png", 1, 1));
+			animationFramesByState.Add(CreatureState.Idle, new int[] {0});
+			animationFramesByState.Add(CreatureState.Walk, new int[] {0});
+			animationFramesByState.Add(CreatureState.Jump, new int[] {0});
         }
 
         void Update()
         {
-            Movement();
+            //Movement();
 			base.Update();
         }
 
