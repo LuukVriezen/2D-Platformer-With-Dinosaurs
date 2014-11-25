@@ -28,6 +28,8 @@ namespace GXPEngine
 		protected int[] currentAnimationFrames;
 		protected float currentAnimationFramesIndex;
 
+        public bool enabled;
+
 
 		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
 		{
@@ -46,6 +48,7 @@ namespace GXPEngine
 			this.animationFramesByState = new Dictionary<CreatureState, int[]>();
 			this.currentAnimationFrames = new int[0];
 			this.currentAnimationFramesIndex = 0;
+            this.enabled = true;
 		}
 
 		protected virtual CreatureState GetCreatureState()
@@ -159,35 +162,38 @@ namespace GXPEngine
 
 		protected void Update()
 		{
-			CreatureState newState = GetCreatureState();
-			if(state != newState || currentAnimationFrames.Length <= 0)
-			{
-				SetCreatureState(newState);
-			}
+            if (enabled)
+            {
+                CreatureState newState = GetCreatureState();
+                if (state != newState || currentAnimationFrames.Length <= 0)
+                {
+                    SetCreatureState(newState);
+                }
 
-			ApplyAnimation();
+                ApplyAnimation();
 
-			if(!grounded)
-			{
-				ApplyGravity();
-			}
+                if (!grounded)
+                {
+                    ApplyGravity();
+                }
 
-            GameBoundaries();
+                GameBoundaries();
 
-			preMoveX = this.x;
-			preMoveY = this.y;
+                preMoveX = this.x;
+                preMoveY = this.y;
 
-			float collisionChecksPerFrame = 3;
+                float collisionChecksPerFrame = 3;
 
-			for(int i = 0; i < collisionChecksPerFrame; i++)
-			{
-				Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
-					(ySpeed * Time.deltaTime) / collisionChecksPerFrame);
+                for (int i = 0; i < collisionChecksPerFrame; i++)
+                {
+                    Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
+                        (ySpeed * Time.deltaTime) / collisionChecksPerFrame);
 
-				//grounded is false unless proven true in collisions
-				grounded = false;
-				CheckCollisions();
-			}
+                    //grounded is false unless proven true in collisions
+                    grounded = false;
+                    CheckCollisions();
+                }
+            }
 		}
 
         private void GameBoundaries()

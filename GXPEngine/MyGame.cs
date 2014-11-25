@@ -52,14 +52,6 @@ namespace GXPEngine
             this.AddChild(HUDCanvas);
         }
 
-        public void DestroyLevel()
-        {
-            level.Destroy();
-            makeLevel = false;
-            Update();
-        }
-
-
 		static void Main() {
 			new MyGame().Start();
 		}

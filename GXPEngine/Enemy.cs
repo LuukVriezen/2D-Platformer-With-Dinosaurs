@@ -19,8 +19,11 @@ namespace GXPEngine
 
         void Update()
         {
-            //Movement();
-			base.Update();
+            if (enabled)
+            {
+                //Movement();
+			    base.Update();
+            }
         }
 
         void Movement()

@@ -8,11 +8,12 @@ namespace GXPEngine
         private bool isFacingRight = true;
 		public int score;
 		public int lives;
-
+        
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
 			lives = 3;
+            enabled = true;
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
@@ -89,19 +90,22 @@ namespace GXPEngine
 
 		new void Update()
 		{
-			Console.WriteLine("ySpeed: {0}", ySpeed);
-			if(!isFacingRight)
-			{
-				sprite.Mirror(true, false);
-			}
-			else
-			{
-				sprite.Mirror(false, false);
-			}
-			CheckMovementInput();
-			CheckJumpInput();
-            Shoot();
-			base.Update();
+            if (enabled)
+            {
+                Console.WriteLine("ySpeed: {0}", ySpeed);
+                if (!isFacingRight)
+                {
+                    sprite.Mirror(true, false);
+                }
+                else
+                {
+                    sprite.Mirror(false, false);
+                }
+                CheckMovementInput();
+                CheckJumpInput();
+                Shoot();
+                base.Update();
+            }
 		}
 
         private void Shoot()

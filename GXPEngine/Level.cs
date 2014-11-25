@@ -10,8 +10,7 @@ namespace GXPEngine
 		public int tileSize;
         public Player player;
 		private LevelReader reader;
-
-        bool isContinue = false;
+        GameOver gameover = new GameOver();
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -175,13 +174,8 @@ namespace GXPEngine
 		}
         void Update()
         {
+            GameOver();
             Scrolling();
-
-           
-            if (Input.GetKeyDown(Key.D) || isContinue)
-            {
-                //GameOver();
-            }
         }
 
         public void Scrolling()
@@ -209,9 +203,34 @@ namespace GXPEngine
 
         public void GameOver()
         {
-            GameOver gameover = new GameOver();
-            parent.AddChild(gameover);
-            getParentMyGame().DestroyLevel();
+            if (Input.GetKeyDown(Key.D))
+            {
+                AddChild(gameover);
+
+                List<GameObject> children = this.GetChildren();
+                foreach (GameObject child in children)
+                {
+                    if (child is Creature)
+                    {
+                        (child as Creature).enabled = false;
+                    }
+                }
+                if (Input.GetKeyDown(Key.Y))
+                {
+                    foreach (GameObject child in children)
+                    {
+                        if (child is Creature)
+                        {
+                            (child as Creature).enabled = true;
+                        }
+                    }
+                    gameover.Destroy();
+                }
+                if (10 < 9)
+                {
+                    //Here when is started again.
+                }
+            }
 
         }
 	}
