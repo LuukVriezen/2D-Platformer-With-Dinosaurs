@@ -26,7 +26,7 @@ namespace GXPEngine
         //back by firing
 
         //Pistol hight and width from the picture
-        int pistolHeight = 10;
+        int pistolHeight = 22;
         int pistolWidth = 0;
 
         int shakeLength = 200;
@@ -35,7 +35,7 @@ namespace GXPEngine
         float pistolStart;
         
         //Rainbow bullet en beam
-        Sprite pistolBullet = new Sprite("../../Assets/IMG/bullit.png");
+        Sprite pistolBullet = new Sprite("../../Assets/IMG/32DinoProjectile.png");
         //Hit test sprite
         //Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
 

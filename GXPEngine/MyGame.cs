@@ -7,12 +7,13 @@ namespace GXPEngine
 
 	public class MyGame : Game
 	{	
-		Canvas HUDCanvas;
+		HUD HUDCanvas;
 		Level level;
 
         bool isPressed = false;
         bool makeLevel = true;
         MenuScreen menuScreen;
+        MessageBox messageBox;
 
 		public MyGame () : base(640, 480, false)
 		{
@@ -32,15 +33,20 @@ namespace GXPEngine
                     makeLevel = false;
                     menuScreen.Destroy();
                 }
-                HUDCanvas.graphics.Clear(Color.Transparent);
-				HUDCanvas.graphics.DrawString("Score: " + level.player.score, new Font("Arial", 20), Brushes.White, new PointF(20, 20));
-				HUDCanvas.graphics.DrawString("Lives: " + level.player.lives, new Font("Arial", 20), Brushes.White, new PointF(20, 60));
                 isPressed = true;
+                HUDCanvas.Score(level.player.score);
+                HUDCanvas.Lives(level.player.lives);
+                messageBox.Message();
             }
 		}
 
         public void MakeLevel()
         {
+            HUDCanvas = new HUD(this.width, this.height);
+            this.AddChild(HUDCanvas);
+            messageBox = new MessageBox(this.width, this.height);
+            this.AddChild(messageBox);
+
 			//TEMP
 			int tileSize = 32;
 			LevelReader reader = new LevelReader(/*TEMP*/"level.tmx"/*TEMPEND*/);
@@ -48,8 +54,6 @@ namespace GXPEngine
             this.AddChild(level);
 			//TEMPEND
 
-            HUDCanvas = new Canvas(this.width, this.height);
-            this.AddChild(HUDCanvas);
         }
 
 		static void Main() {

@@ -10,7 +10,8 @@ namespace GXPEngine
 		public int tileSize;
         public Player player;
 		private LevelReader reader;
-        GameOver gameover = new GameOver();
+        GameOver gameover;
+        int timer = 10;
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -189,45 +190,50 @@ namespace GXPEngine
                 {
                     x = 100 - player.x;
                 }
-                //if (player.y + y > 200)
-                //{
-                //    y = 200 - player.y;
-                //}
-                //if (player.y + y < 200)
-                //{
-                //    y = 200 - player.y;
-                //}
+                if (player.y + y > 200)
+                {
+                    y = 200 - player.y;
+                }
+                if (player.y + y < 200)
+                {
+                    y = 200 - player.y;
+                }
             }
 		}
         public void GameOver()
         {
             //Back to the start anyways.
-                AddChild(gameover);
+            gameover = new GameOver(timer);
+            gameover.x = player.x - player.sprite.width - 20;
+            AddChild(gameover);
 
-                List<GameObject> children = this.GetChildren();
+            List<GameObject> children = this.GetChildren();
+            foreach (GameObject child in children)
+            {
+                if (child is Creature)
+                {
+                    (child as Creature).enabled = false;
+                }
+            }
+            if (Input.GetKeyDown(Key.Y))
+            {
                 foreach (GameObject child in children)
                 {
                     if (child is Creature)
                     {
-                        (child as Creature).enabled = false;
+                        (child as Creature).enabled = true;
                     }
                 }
-                if (Input.GetKeyDown(Key.Y))
-                {
-                    foreach (GameObject child in children)
-                    {
-                        if (child is Creature)
-                        {
-                            (child as Creature).enabled = true;
-                        }
-                    }
-                    gameover.Destroy();
-                }
-                if (10 < 9)
-                {
-                    //Here when is started again.
-                }
-
+                gameover.Destroy();
+            }
+            if (timer > 0)
+            {
+                gameover.Destroy();
+                timer--;
+            }
+            else
+            {
+            }
         }
 	}
 }

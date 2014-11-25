@@ -15,6 +15,11 @@ namespace GXPEngine
 		private int blinkCounter;
 		private bool transparent;
 
+        int oldTime;
+        int shootDelay;
+        int spriteDelay;
+        int oldTimeSprite;
+
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
@@ -25,6 +30,8 @@ namespace GXPEngine
 			blinkLimit = 100;
 			blinkCounter = blinkLimit;
 			transparent = false;
+            shootDelay = 500;
+            spriteDelay = 50;
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
@@ -100,7 +107,7 @@ namespace GXPEngine
 					}
 					else if(collidableObject is Lava)
 					{
-						getParentLevel().GameOver();
+                            getParentLevel().GameOver();
 					}
 					else if(collidableObject is Enemy)
 					{
@@ -151,7 +158,7 @@ namespace GXPEngine
 					Blink();
 				}
 
-				Console.WriteLine("invincible: {0}", invincible);
+				//Console.WriteLine("invincible: {0}", invincible);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
@@ -169,17 +176,23 @@ namespace GXPEngine
 
         private void Shoot()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.P) && Time.time > (oldTimeSprite + spriteDelay))
             {
-                if (isFacingRight)
+                oldTimeSprite = Time.time;
+                sprite.SetFrame(0);
+                if (Time.time > (oldTime + shootDelay))
                 {
-                    projectile = new Projectile(this, true);
-                    parent.AddChild(projectile);
-                }
-                else
-                {
-                    projectile = new Projectile(this, false);
-                    parent.AddChild(projectile);
+                    oldTime = Time.time;
+                    if (isFacingRight)
+                    {
+                        projectile = new Projectile(this, true);
+                        parent.AddChild(projectile);
+                    }
+                    else
+                    {
+                        projectile = new Projectile(this, false);
+                        parent.AddChild(projectile);
+                    }
                 }
 
             }

@@ -39,7 +39,9 @@
   <ItemGroup>
     <Compile Include="Beam.cs" />
     <Compile Include="GameOver.cs" />
+    <Compile Include="MessageBox.cs" />
     <Compile Include="GXPEngine\Sound.cs" />
+    <Compile Include="HUD.cs" />
     <Compile Include="MenuScreen.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Game.cs" />

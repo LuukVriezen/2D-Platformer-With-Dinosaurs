@@ -200,7 +200,7 @@ namespace GXPEngine
             if (x < 0) x = 0;
 			if (x > getParentLevel().width - sprite.width) x = getParentLevel().width - sprite.width;
             y = y + ySpeed;
-            if (y < 0) y = 0;
+            //if (y < 0) y = 0;
 			if (y > getParentLevel().height - sprite.height) y = getParentLevel().height - sprite.height;
         }
 	}
