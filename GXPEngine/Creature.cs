@@ -48,19 +48,19 @@ namespace GXPEngine
 			this.currentAnimationFramesIndex = 0;
 		}
 
-		protected virtual void UpdateCreatureState()
+		protected virtual CreatureState GetCreatureState()
 		{
 			if(ySpeed != 0)
 			{
-				state = CreatureState.Jump;
+				return CreatureState.Jump;
 			}
 			else if(xSpeed != 0)
 			{
-				state = CreatureState.Walk;
+				return CreatureState.Walk;
 			}
 			else
 			{
-				state = CreatureState.Idle;
+				return CreatureState.Idle;
 			}
 		}
 
@@ -139,8 +139,34 @@ namespace GXPEngine
 			}
 		}
 
+		protected void SetCreatureState(CreatureState state)
+		{
+			this.state = state;
+			currentAnimationFrames = animationFramesByState[state];
+			currentAnimationFramesIndex = 0;
+		}
+
+		protected void ApplyAnimation()
+		{
+			currentAnimationFramesIndex += 0.01f * Time.deltaTime;
+			if((int)currentAnimationFramesIndex >= currentAnimationFrames.Length)
+			{
+				currentAnimationFramesIndex = 0;
+			}
+
+			sprite.SetFrame(currentAnimationFrames[(int)currentAnimationFramesIndex]);
+		}
+
 		protected void Update()
 		{
+			CreatureState newState = GetCreatureState();
+			if(state != newState || currentAnimationFrames.Length <= 0)
+			{
+				SetCreatureState(newState);
+			}
+
+			ApplyAnimation();
+
 			ApplyGravity();
 
             GameBoundaries();

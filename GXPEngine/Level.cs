@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Collections.Generic;
 
@@ -128,7 +128,7 @@ namespace GXPEngine
 							break;
 
 						case 11:
-							player = new Player(0.1f, 2, 0.6f, 1.3f);
+							player = new Player(0.1f, 2, 0.25f, 1.3f);
 							player.SetXY(x * tileSize, y * tileSize);
 							this.AddChild(player);
 							break;
@@ -156,8 +156,6 @@ namespace GXPEngine
         void Update()
         {
             Scrolling();
-
-            //Console.WriteLine("Score: {0}", score);
         }
 
         public void Scrolling()

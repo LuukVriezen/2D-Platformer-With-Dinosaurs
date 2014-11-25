@@ -1,24 +1,22 @@
 ﻿<Properties GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="GXPEngine\LevelReader.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GXPEngine\Level.cs">
     <Files>
-      <File FileName="GXPEngine\Level.cs" Line="48" Column="48" />
+      <File FileName="GXPEngine\Level.cs" Line="15" Column="15" />
       <File FileName="GXPEngine\CreatureState.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\Creature.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\MyGame.cs" Line="81" Column="81" />
-      <File FileName="GXPEngine\Player.cs" Line="1" Column="1" />
+      <File FileName="GXPEngine\Creature.cs" Line="23" Column="23" />
+      <File FileName="GXPEngine\MyGame.cs" Line="31" Column="31" />
+      <File FileName="GXPEngine\Player.cs" Line="2" Column="2" />
       <File FileName="GXPEngine\Collectable.cs" Line="1" Column="1" />
       <File FileName="GXPEngine\TileObject.cs" Line="1" Column="1" />
       <File FileName="GXPEngine\Enemy.cs" Line="1" Column="1" />
       <File FileName="GXPEngine\Lava.cs" Line="1" Column="1" />
       <File FileName="GXPEngine\Projectile.cs" Line="1" Column="1" />
-      <File FileName="GXPEngine\LevelReader.cs" Line="5" Column="5" />
+      <File FileName="GXPEngine\LevelReader.cs" Line="50" Column="50" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\luuk\Dropbox\Project 2D platformer\2D-Platformer-With-Dinosaurs\GXPEngine\Level.cs" line="21" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -17,6 +17,7 @@ namespace GXPEngine
         void Update()
         {
             Movement();
+			base.Update();
         }
 
         void Movement()
