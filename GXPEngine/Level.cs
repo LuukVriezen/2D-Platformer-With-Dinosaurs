@@ -10,7 +10,12 @@ namespace GXPEngine
 		public int tileSize;
         public Player player;
 		private LevelReader reader;
+<<<<<<< HEAD
         GameOver gameover = new GameOver();
+=======
+
+
+>>>>>>> Stash
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -157,14 +162,14 @@ namespace GXPEngine
 					{
 						collidableObjects.Add(child as SpriteObject);
 					}
-					else
-					if(child is Enemy)
+					else if(child is Enemy)
 					{
 						foreach(Point occupyingTile in (child as Enemy).GetOccupyingTiles())
 						{
 							if(Array.IndexOf(tiles, occupyingTile) != -1)
 							{
-									collidableObjects.Add(child as SpriteObject);
+								collidableObjects.Add(child as SpriteObject);
+								break;
 							}
 						}
 					}
@@ -199,8 +204,9 @@ namespace GXPEngine
                 //    y = 200 - player.y;
                 //}
             }
-        }
+		}
 
+<<<<<<< HEAD
         public void GameOver()
         {
             if (Input.GetKeyDown(Key.D))
@@ -233,6 +239,11 @@ namespace GXPEngine
             }
 
         }
+=======
+		public void GameOver()
+		{
+			//Temporarily empty
+		}
+>>>>>>> Stash
 	}
 }
-
