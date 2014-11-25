@@ -186,7 +186,7 @@ namespace GXPEngine
 
 				//grounded is false unless proven true in collisions
 				grounded = false;
-				//CheckCollisions();
+				CheckCollisions();
 			}
 		}
 
