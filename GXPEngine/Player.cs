@@ -15,6 +15,9 @@ namespace GXPEngine
 		private int blinkCounter;
 		private bool transparent;
 
+        int shootDelay;
+        int oldTime;
+
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
@@ -25,6 +28,7 @@ namespace GXPEngine
 			blinkLimit = 100;
 			blinkCounter = blinkLimit;
 			transparent = false;
+            shootDelay = 500;
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
@@ -143,31 +147,35 @@ namespace GXPEngine
 
 		new void Update()
 		{
-			UpdateInvincibility();
-			if(invincible)
-			{
-				Blink();
-			}
+            if (enabled)
+            {
+                UpdateInvincibility();
+                if (invincible)
+                {
+                    Blink();
+                }
 
-			Console.WriteLine("invincible: {0}", invincible);
-			if(!isFacingRight)
-			{
-				sprite.Mirror(true, false);
-			}
-			else
-			{
-				sprite.Mirror(false, false);
-			}
-			CheckMovementInput();
-			CheckJumpInput();
-            Shoot();
-			base.Update();
+                Console.WriteLine("invincible: {0}", invincible);
+                if (!isFacingRight)
+                {
+                    sprite.Mirror(true, false);
+                }
+                else
+                {
+                    sprite.Mirror(false, false);
+                }
+                CheckMovementInput();
+                CheckJumpInput();
+                Shoot();
+                base.Update();
+            }
 		}
 
         private void Shoot()
         {
-            if (Input.GetKeyDown(Key.P))
+            if (Input.GetKeyDown(Key.P) && Time.time > (oldTime + shootDelay))
             {
+                oldTime = Time.time;
                 if (isFacingRight)
                 {
                     projectile = new Projectile(this, true);

@@ -182,11 +182,7 @@ namespace GXPEngine
                 preMoveX = this.x;
                 preMoveY = this.y;
 
-<<<<<<< HEAD
-                float collisionChecksPerFrame = 3;
-=======
-			float collisionChecksPerFrame = 1;
->>>>>>> Stash
+			    float collisionChecksPerFrame = 1;
 
                 for (int i = 0; i < collisionChecksPerFrame; i++)
                 {

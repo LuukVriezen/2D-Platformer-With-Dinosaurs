@@ -10,12 +10,7 @@ namespace GXPEngine
 		public int tileSize;
         public Player player;
 		private LevelReader reader;
-<<<<<<< HEAD
         GameOver gameover = new GameOver();
-=======
-
-
->>>>>>> Stash
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -179,7 +174,6 @@ namespace GXPEngine
 		}
         void Update()
         {
-            GameOver();
             Scrolling();
         }
 
@@ -205,13 +199,9 @@ namespace GXPEngine
                 //}
             }
 		}
-
-<<<<<<< HEAD
         public void GameOver()
         {
             //Back to the start anyways.
-            if (Input.GetKeyDown(Key.D))
-            {
                 AddChild(gameover);
 
                 List<GameObject> children = this.GetChildren();
@@ -237,14 +227,7 @@ namespace GXPEngine
                 {
                     //Here when is started again.
                 }
-            }
 
         }
-=======
-		public void GameOver()
-		{
-			//Temporarily empty
-		}
->>>>>>> Stash
 	}
 }
