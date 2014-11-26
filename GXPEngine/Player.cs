@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GXPEngine
 {
@@ -66,6 +66,7 @@ namespace GXPEngine
 			if(Input.GetKeyDown(Key.UP))
 			{
 				ySpeed = -jumpHeight;
+				grounded = false;
 			}
 		}
 
@@ -157,8 +158,8 @@ namespace GXPEngine
 				{
 					Blink();
 				}
-
-				//Console.WriteLine("invincible: {0}", invincible);
+					
+				Console.WriteLine("grounded: {0}", grounded);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);

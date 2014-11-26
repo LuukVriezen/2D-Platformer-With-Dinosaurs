@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GXPEngine
 {
@@ -160,6 +161,30 @@ namespace GXPEngine
 			sprite.SetFrame(currentAnimationFrames[(int)currentAnimationFramesIndex]);
 		}
 
+		private void CheckIfGrounded()
+		{
+			Point[] occupyingTiles = GetOccupyingTiles();
+			int maxYCoordinate = occupyingTiles.OrderByDescending(ot => ot.Y).First().Y;
+			int[] allXCoordinates = occupyingTiles.Select(ot => ot.X).ToArray();
+			Point[] belowTiles = new Point[allXCoordinates.Length];
+
+			for (int index = 0; index < allXCoordinates.Length; index++)
+			{
+				belowTiles[index] = new Point(allXCoordinates[index], maxYCoordinate + 1);
+			}
+
+			SpriteObject[] objectsBelow = getParentLevel().GetCollidableObjectsInTiles(belowTiles);
+
+			grounded = false;
+			foreach(SpriteObject objectBelow in objectsBelow)
+			{
+				if(objectBelow is Platform)
+				{
+					grounded = true;
+				}
+			}
+		}
+
 		protected void Update()
 		{
             if (enabled)
@@ -171,6 +196,11 @@ namespace GXPEngine
                 }
 
                 ApplyAnimation();
+
+				if(grounded)
+				{
+					CheckIfGrounded();
+				}
 
                 if (!grounded)
                 {
@@ -188,8 +218,6 @@ namespace GXPEngine
                     Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
                         (ySpeed * Time.deltaTime) / collisionChecksPerFrame);
 
-                    //grounded is false unless proven true in collisions
-                    grounded = false;
                     CheckCollisions();
                 }
             }
