@@ -29,45 +29,67 @@ namespace GXPEngine
             menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
-
-
 			//this.AddChild(new Collectable());
 		}
 		
-		void Update () {
+		void Update () 
+        {
             background.BackgroundAnimation();
-            if (Input.GetKey(Key.SPACE) || isPressed)
+            if (Input.GetKey(Key.S) || isPressed)
             {
-                if (makeLevel)
+                bool isLeaderBoard = menuScreen.LeaderBoard();
+                if (makeLevel && isLeaderBoard == false)
                 { 
                     MakeLevel();
                     makeLevel = false;
                     menuScreen.Destroy();
+                    isPressed = true;
                 }
-                isPressed = true;
+                if (restartLevel)
+                {
+                    level.player.score = 0;
+                    level.player.lives = 3;
+                    if (dead == true)
+                    {
+                        makeLevel = false;
+                        dead = false;
+                    }
+                    else
+                    {
+                        makeLevel = true;
+                    }
+                    restartLevel = false;
+                    stilldead = false;
+                }
                 if (dead)
                 {
                     HUDCanvas.Destroy();
                     messageBox.Destroy();
-                    makeLevel = false;
-                    dead = false;
-                    stilldead = true;
-                }
-                else if (restartLevel)
-                {
-                    level.player.score = 0;
-                    level.player.lives = 3;
+                    MakeMenu();
                     makeLevel = true;
-                    restartLevel = false;
+                    dead = true;
+                    stilldead = true;
+                    isPressed = false;
+                    restartLevel = true;
                 }
-                else if (stilldead == false && isPressed)
+                if (stilldead == false && isPressed)
                 {
                     HUDCanvas.Score(level.player.score);
                     HUDCanvas.Lives(level.player.lives);
                     messageBox.Message();
                 }
+                if (isLeaderBoard)
+                {
+                    //leaderboard
+                }
             }
 		}
+
+        public void MakeMenu()
+        {
+            menuScreen = new MenuScreen();
+            this.AddChild(menuScreen);
+        }
 
         public void MakeLevel()
         {

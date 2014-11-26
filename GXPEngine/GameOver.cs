@@ -11,9 +11,13 @@ namespace GXPEngine
         public GameOver(int counter)
         {
             Canvas gameOverCanvas = new Canvas(game.width, game.height);
+            Sprite gameOverSprite = new Sprite("../../Assets/IMG/gameover.png");
+            gameOverSprite.width = game.width;
+            gameOverSprite.height = game.height-100;
+            gameOverSprite.SetXY((game.width / 2) - (gameOverSprite.width - 25), 0);
             gameOverCanvas.graphics.Clear(Color.Empty);
-            gameOverCanvas.graphics.DrawString("Game Over \nTry Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200, game.height / 2));
-            AddChild(gameOverCanvas);
+            gameOverCanvas.graphics.DrawString("Try Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200, game.height / 2));
+            AddChild(gameOverSprite);
         }
     }
 }

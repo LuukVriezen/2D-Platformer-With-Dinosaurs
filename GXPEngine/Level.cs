@@ -201,19 +201,20 @@ namespace GXPEngine
                     GameOver(timer);
                     timer--;
                 }
-                if (Input.GetKey(Key.SPACE))
+                if (Input.GetKey(Key.S))
                 {
+                    List<GameObject> elements = this.GetChildren();
                     if (timer > 0)
                     {
+                        for (int i = 0; i < elements.Count; i++)
+                        {
+                            elements[i].Destroy();
+                        }
+                        getParentMyGame().dead = false;
                         this.Destroy();
+                        isGameOver = false;
+                        MyGame.restartLevel = true;
                     }
-                    else
-                    {
-                        getParentMyGame().dead = true;
-                        this.Destroy();
-                    }
-
-                    MyGame.restartLevel = true;
                     isGameOver = false;
                 }
             }
@@ -254,8 +255,6 @@ namespace GXPEngine
                 {
                     y = 100 - player.y;
                 }
-                Console.WriteLine("P: "+ player.x);
-                Console.WriteLine("X: "+x);
                 //{
                 //    y = 75;
                 //}
@@ -284,8 +283,15 @@ namespace GXPEngine
             }
             if (timer <= 0)
             {
+                isGameOver = false;
+                MyGame.restartLevel = false;
                 getParentMyGame().dead = true;
-                this.visible = false;
+                for (int i = 0; i < children.Count; i++)
+                {
+                    children[i].Destroy();
+                }
+                this.Destroy();
+                //this.visible = false;
             }
         }
 	}
