@@ -10,11 +10,15 @@ namespace GXPEngine
 		public int tileSize;
         public Player player;
 		private LevelReader reader;
+<<<<<<< Upstream, based on origin/master
         GameOver gameover;
         int timer = 10;
         public bool isGameOver;
         int oldtime = 0;
         int seconds = 10000;
+=======
+        GameOver gameover = new GameOver();
+>>>>>>> b98ece2 Now makes use of grounded boolean
 
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
@@ -219,12 +223,22 @@ namespace GXPEngine
             }
 		}
 
+<<<<<<< Upstream, based on origin/master
         private void GameOver(int timer)
+=======
+        public void GameOver()
+>>>>>>> b98ece2 Now makes use of grounded boolean
         {
+<<<<<<< Upstream, based on origin/master
             //Back to the start anyways.
             gameover = new GameOver(timer);
             gameover.x = player.x - player.sprite.width - 20;
             AddChild(gameover);
+=======
+            if (Input.GetKeyDown(Key.D))
+            {
+                AddChild(gameover);
+>>>>>>> b98ece2 Now makes use of grounded boolean
 
             List<GameObject> children = this.GetChildren();
             foreach (GameObject child in children)
@@ -233,6 +247,7 @@ namespace GXPEngine
                 {
                     (child as Creature).enabled = false;
                 }
+<<<<<<< Upstream, based on origin/master
             }
             if (timer == 0)
             {
@@ -243,7 +258,26 @@ namespace GXPEngine
             {
                 MenuScreen menuScreen = new MenuScreen();
                 AddChild(menuScreen);
+=======
+                if (Input.GetKeyDown(Key.Y))
+                {
+                    foreach (GameObject child in children)
+                    {
+                        if (child is Creature)
+                        {
+                            (child as Creature).enabled = true;
+                        }
+                    }
+                    gameover.Destroy();
+                }
+                if (10 < 9)
+                {
+                    //Here when is started again.
+                }
+            }
+>>>>>>> b98ece2 Now makes use of grounded boolean
 
+<<<<<<< Upstream, based on origin/master
                 if (Input.GetKeyDown(Key.SPACE))
                 {
                     menuScreen.Destroy();
@@ -254,5 +288,8 @@ namespace GXPEngine
                 }
             }
         }
+=======
+        }
+>>>>>>> b98ece2 Now makes use of grounded boolean
 	}
 }

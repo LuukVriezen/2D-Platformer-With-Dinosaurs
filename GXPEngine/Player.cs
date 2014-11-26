@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GXPEngine
 {
@@ -66,6 +66,7 @@ namespace GXPEngine
 			if(Input.GetKeyDown(Key.UP))
 			{
 				ySpeed = -jumpHeight;
+				grounded = false;
 			}
 		}
 
@@ -158,7 +159,11 @@ namespace GXPEngine
 					Blink();
 				}
 
+<<<<<<< Upstream, based on origin/master
 				//Console.WriteLine("invincible: {0}", invincible);
+=======
+				Console.WriteLine("grounded: {0}", grounded);
+>>>>>>> b98ece2 Now makes use of grounded boolean
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
