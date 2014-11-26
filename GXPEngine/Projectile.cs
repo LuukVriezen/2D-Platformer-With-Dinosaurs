@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace GXPEngine
 {
-    class Projectile : GameObject
+	class Projectile : SpriteObject
     {
         //Fields of Projectile
         float xSpeed = 0.0f;
@@ -34,14 +34,16 @@ namespace GXPEngine
 
         float pistolStart;
         
-        //Rainbow bullet en beam
-        Sprite pistolBullet = new Sprite("../../Assets/IMG/32DinoProjectile.png");
         //Hit test sprite
         //Sprite hitWall = new Sprite("../../Assets/IMG/colors.png");
 
+		public int damage;
+
         public Projectile(Creature creature, bool isRight)
         {
-            AddChild(pistolBullet);
+			sprite = new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1);
+
+            AddChild(sprite);
             if (creature is Player)
             {
                 _player = (Player)creature;
@@ -52,16 +54,16 @@ namespace GXPEngine
             }
             if (isRight)
             {
-                pistolBullet.SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
+                sprite.SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
             }
             else
             {
-                pistolBullet.SetXY(creature.x - pistolBullet.width, creature.y + pistolHeight);
+                sprite.SetXY(creature.x - sprite.width, creature.y + pistolHeight);
             }
 
             _isRight = isRight;
 
-            pistolStart = pistolBullet.x;
+            pistolStart = sprite.x;
 
 
             originX = _player.getParentLevel().x;
@@ -70,10 +72,60 @@ namespace GXPEngine
             //AddChild(hitWall);
             //hitWall.SetXY(game.width - hitWall.width - 200, game.height -hitWall.height);
 
+			//TEMP
+			damage = 1;
+			//TEMPEND
+
         }
+
+		public Point[] GetOccupyingTiles()
+		{
+			int tileSize = 0;
+			List<Point> occupyingTiles = new List<Point>();
+
+			try
+			{
+				tileSize = getParentLevel().tileSize;
+			}
+			catch
+			{
+				//TODO: Error handling
+			}
+
+			Point topLeftCoordinates = new Point((int)x / tileSize, (int)y / tileSize);
+			Point bottomRightCoordinates = new Point(((int)x + sprite.width) / tileSize, ((int)y + sprite.height) / tileSize);
+
+			for(int tileX = topLeftCoordinates.X; tileX <= bottomRightCoordinates.X; tileX++)
+			{
+				for(int tileY = topLeftCoordinates.Y; tileY <= bottomRightCoordinates.Y; tileY++)
+				{
+					occupyingTiles.Add(new Point(tileX, tileY));
+				}
+			}
+
+			return occupyingTiles.ToArray();
+		}
+
+		private void CheckCollisions()
+		{
+			SpriteObject[] collidableObjects = getParentLevel().GetCollidableObjectsInTiles(GetOccupyingTiles());
+
+			foreach(SpriteObject collidableObject in collidableObjects)
+			{
+				if(sprite.HitTest(collidableObject.sprite))
+				{
+					if(collidableObject is Enemy)
+					{
+						(collidableObject as Enemy).TakeDamage(damage);
+						RemoveProjectile();
+					}
+				}
+			}
+		}
 
         public void Update()
         {
+			CheckCollisions();
             if (/*Input.GetKeyDown(Key.P) ||*/ stopShot)
             {
                 GunShot();
@@ -92,7 +144,7 @@ namespace GXPEngine
             if (notDoneYet)
             {
 
-                if (!(pistolBullet.x < 0) && !(pistolBullet.x > _player.getParentLevel().width) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)pistolBullet.x)) || _isRight == false && (pistolStart - shakeLength) < pistolBullet.x)
+                if (!(sprite.x < 0) && !(sprite.x > _player.getParentLevel().width) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)sprite.x)) || _isRight == false && (pistolStart - shakeLength) < sprite.x)
                 {
                     _player.getParentLevel().x = _player.getParentLevel().x + random.Next(-10, 10);
                     _player.getParentLevel().y = _player.getParentLevel().y + random.Next(-10, 10);
@@ -114,12 +166,12 @@ namespace GXPEngine
             if (_isRight)
             {
                 xSpeed = xSpeed + 25;
-                pistolBullet.x = (_player.x + _player.sprite.width) + xSpeed;
+                sprite.x = (_player.x + _player.sprite.width) + xSpeed;
             }
             else
             {
                 xSpeed = xSpeed - 25;
-                pistolBullet.x = (_player.x - pistolBullet.width) + xSpeed;
+                sprite.x = (_player.x - sprite.width) + xSpeed;
             }
             //Console.WriteLine(pistolBullet.x);
             //Check collision with an object.
@@ -131,25 +183,30 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
-            if (pistolBullet.x < _player.getParentLevel().width)
+            if (sprite.x < _player.getParentLevel().width)
             {
                 stopShot = true;
             }
             else
             {
-                //pistolBullet.SetXY(_player.x, _player.y);
-                xSpeed = 0;
-                stopShot = false;
-                pistolBullet.Destroy();
+				RemoveProjectile();
             }
 
         }
+
+		public void RemoveProjectile()
+		{
+			//pistolBullet.SetXY(_player.x, _player.y);
+			xSpeed = 0;
+			stopShot = false;
+			sprite.Destroy();
+		}
 
         public void BeamShot()
         {
             Sprite beam = DubstepBeam();
             xSpeed = xSpeed + 5;
-            pistolBullet.x = xSpeed;
+            sprite.x = xSpeed;
             /*
             if (pistolBullet.HitTest(hitWall))
             {
@@ -169,7 +226,7 @@ namespace GXPEngine
         {
             Beam beam = new Beam();
             parent.AddChild(beam);
-            beam.SetXY(pistolBullet.x, pistolBullet.y);
+            beam.SetXY(sprite.x, sprite.y);
             beam.rotation = rotation;
             return beam;
         }
