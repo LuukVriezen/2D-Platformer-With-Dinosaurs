@@ -201,6 +201,21 @@ namespace GXPEngine
                     GameOver(timer);
                     timer--;
                 }
+                if (Input.GetKey(Key.SPACE))
+                {
+                    if (timer > 0)
+                    {
+                        this.Destroy();
+                    }
+                    else
+                    {
+                        getParentMyGame().dead = true;
+                        this.Destroy();
+                    }
+
+                    MyGame.restartLevel = true;
+                    isGameOver = false;
+                }
             }
             
 
@@ -230,15 +245,12 @@ namespace GXPEngine
             }
 		}
 
-        public void GameOver(int timer)
+        private void GameOver(int timer)
         {
             //Back to the start anyways.
             gameover = new GameOver(timer);
             gameover.x = player.x - player.sprite.width - 20;
             AddChild(gameover);
-            if (Input.GetKeyDown(Key.D))
-            {
-                AddChild(gameover);
 
             List<GameObject> children = this.GetChildren();
             foreach (GameObject child in children)
@@ -248,40 +260,10 @@ namespace GXPEngine
                     (child as Creature).enabled = false;
                 }
             }
-				if(timer == 0)
-				{
-					getParentMyGame().restartLevel = true;
-					this.Destroy();
-				}
-				else
-				if(timer < 0)
-				{
-					MenuScreen menuScreen = new MenuScreen();
-					AddChild(menuScreen);
-					if(Input.GetKeyDown(Key.Y))
-					{
-						foreach(GameObject child in children)
-						{
-							if(child is Creature)
-							{
-								(child as Creature).enabled = true;
-							}
-						}
-						gameover.Destroy();
-					}
-					if(10 < 9)
-					{
-						//Here when is started again.
-					}
-					if(Input.GetKeyDown(Key.SPACE))
-					{
-						menuScreen.Destroy();
-						int tileSize = 32;
-						LevelReader reader = new LevelReader(/*TEMP*/"level.tmx"/*TEMPEND*/);
-						Level level = new Level(reader.GetWidth() * tileSize, reader.GetHeight() * tileSize, tileSize, reader);
-						this.AddChild(level);
-					}
-				}
+            if (timer <= 0)
+            {
+                getParentMyGame().dead = true;
+                this.visible = false;
             }
         }
 	}

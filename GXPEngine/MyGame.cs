@@ -11,11 +11,14 @@ namespace GXPEngine
         Level level;
         MenuScreen menuScreen;
         MessageBox messageBox;
+        Background background;
 
         bool isPressed = false;
         bool makeLevel = true;
 
-        public bool restartLevel = false;
+        static public bool restartLevel = false;
+        public bool dead = false;
+        public bool stilldead = false;
 
 		public MyGame () : base(640, 480, false)
 		{
@@ -23,11 +26,16 @@ namespace GXPEngine
             menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
+            background = new Background(game.width, game.height);
+            this.AddChild(background);
+
+
 			//this.AddChild(new Collectable());
 		}
 		
 		void Update () {
-            if (Input.GetKeyDown(Key.SPACE) || isPressed)
+            background.BackgroundAnimation();
+            if (Input.GetKey(Key.SPACE) || isPressed)
             {
                 if (makeLevel)
                 { 
@@ -36,14 +44,27 @@ namespace GXPEngine
                     menuScreen.Destroy();
                 }
                 isPressed = true;
-                if (restartLevel)
+                if (dead)
+                {
+                    HUDCanvas.Destroy();
+                    messageBox.Destroy();
+                    makeLevel = false;
+                    dead = false;
+                    stilldead = true;
+                }
+                else if (restartLevel)
                 {
                     level.player.score = 0;
                     level.player.lives = 3;
+                    makeLevel = true;
+                    restartLevel = false;
                 }
-                HUDCanvas.Score(level.player.score);
-                HUDCanvas.Lives(level.player.lives);
-                messageBox.Message();
+                else if (stilldead == false && isPressed)
+                {
+                    HUDCanvas.Score(level.player.score);
+                    HUDCanvas.Lives(level.player.lives);
+                    messageBox.Message();
+                }
             }
 		}
 
