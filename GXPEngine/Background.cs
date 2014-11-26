@@ -18,12 +18,12 @@ namespace GXPEngine
         {
             Canvas canvas = new Canvas(width, height);
             background = new Sprite("../../Assets/IMG/background.jpg");
-            background.width = width;
+            background.width = game.width;
             background.height = height;
             AddChild(background);
             
             trees = new AnimSprite("../../Assets/IMG/Background 2D.png",1,14);
-            trees.width = width*2;
+            trees.width = width * 2;
             trees.height = game.height / 2;
             trees.y = game.height - trees.height;
             AddChild(trees);

@@ -22,12 +22,13 @@ namespace GXPEngine
 
 		public MyGame () : base(640, 480, false)
 		{
+            
+            background = new Background(game.width, game.height);
+            this.AddChild(background);
 
             menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
-            background = new Background(game.width, game.height);
-            this.AddChild(background);
 
 
 			//this.AddChild(new Collectable());

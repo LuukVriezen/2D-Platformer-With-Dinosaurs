@@ -219,18 +219,40 @@ namespace GXPEngine
                 {
                     x = 400 - player.x;
                 }
-                if (player.x + x < 100)
+                if (player.x + x <50)
                 {
-                    x = 100 - player.x;
+                    x = 50 - player.x;
                 }
-                if (player.y + y > 200)
+                //if (player.x + x < 400)
+                //{
+                //    x = 0;
+                //}
+                if (player.x > 2950)
                 {
-                    y = 200 - player.y;
+                    x = -2560;
                 }
-                if (player.y + y < 200)
+                if (player.y + y > 45)
                 {
-                    y = 200 - player.y;
+                    y = 75; /*- player.y;*/
                 }
+                if (player.y < 100)
+                {
+                    y = 100;
+                }
+                if (player.y < 0)
+                {
+                    y = 100 - player.y;
+                }
+                Console.WriteLine("P: "+ player.x);
+                Console.WriteLine("X: "+x);
+                //{
+                //    y = 75;
+                //}
+                //if (player.y + y < 100)
+                //{
+                    
+                //    y = 100 - player.y;
+                //}
             }
 		}
 
