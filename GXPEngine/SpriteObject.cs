@@ -11,6 +11,11 @@ namespace GXPEngine
 
 		}
 
+		public Level getParentLevel()
+		{
+			return parent as Level;
+		}
+
 		public void SetSprite(AnimSprite sprite)
 		{
 			this.sprite = sprite;

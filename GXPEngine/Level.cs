@@ -172,6 +172,17 @@ namespace GXPEngine
 							}
 						}
 					}
+					else if(child is Projectile)
+					{
+						foreach(Point occupyingTile in (child as Projectile).GetOccupyingTiles())
+						{
+							if(Array.IndexOf(tiles, occupyingTile) != -1)
+							{
+								collidableObjects.Add(child as SpriteObject);
+								break;
+							}
+						}
+					}
 				}
 			}
 			return collidableObjects.ToArray();

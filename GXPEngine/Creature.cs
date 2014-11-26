@@ -86,11 +86,6 @@ namespace GXPEngine
 			}
 		}
 
-		public Level getParentLevel()
-		{
-			return parent as Level;
-		}
-
 		public Point[] GetOccupyingTiles()
 		{
 			int tileSize = 0;

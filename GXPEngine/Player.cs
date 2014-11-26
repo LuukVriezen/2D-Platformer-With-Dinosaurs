@@ -159,7 +159,7 @@ namespace GXPEngine
 					Blink();
 				}
 					
-				Console.WriteLine("grounded: {0}", grounded);
+				//Console.WriteLine("grounded: {0}", grounded);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
