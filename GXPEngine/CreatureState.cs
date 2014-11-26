@@ -6,7 +6,8 @@ namespace GXPEngine
 	{
 		Idle,
 		Walk,
-		Jump
+		Jump,
+		Dead
 	}
 }
 
