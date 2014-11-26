@@ -209,7 +209,7 @@ namespace GXPEngine
 				}
 				else
 				{
-					//getParentLevel().GameOver();
+                    getParentLevel().isGameOver = true;
 				}
 			}
 		}

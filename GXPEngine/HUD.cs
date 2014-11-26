@@ -52,14 +52,14 @@ namespace GXPEngine
 
         public void LifeImages(int sprite1Img, int sprite2Img, int sprite3Img)
         {
-            sprite1.SetXY(430, 20);
-            sprite2.SetXY(500, 20);
-            sprite3.SetXY(570, 20);
+            sprite1.SetXY(460, 20);
+            sprite2.SetXY(520, 20);
+            sprite3.SetXY(580, 20);
             sprite1.SetFrame(sprite1Img);
             sprite2.SetFrame(sprite2Img);
             sprite3.SetFrame(sprite3Img);
             canvasLives.graphics.Clear(Color.Transparent);
-            canvasLives.graphics.DrawString("Lives: ", new Font("Arial", 20), Brushes.White, new PointF(350, 35));
+            canvasLives.graphics.DrawString("Lives: ", new Font("Arial", 20), Brushes.White, new PointF(380, 27));
         }
     }
 }
