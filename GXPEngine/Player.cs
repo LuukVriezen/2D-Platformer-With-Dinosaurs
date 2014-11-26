@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace GXPEngine
 {
@@ -107,11 +107,14 @@ namespace GXPEngine
 					}
 					else if(collidableObject is Lava)
 					{
-                        //getParentLevel().isGameOver = true;
+                        getParentLevel().isGameOver = true;
 					}
 					else if(collidableObject is Enemy)
 					{
-						SubtractLife();
+						if((collidableObject as Enemy).state != CreatureState.Dead)
+						{
+							SubtractLife();
+						}
 
 					}
 				}
@@ -201,7 +204,7 @@ namespace GXPEngine
 				}
 				else
 				{
-                    //getParentLevel().isGameOver = true;
+                    getParentLevel().isGameOver = true;
 				}
 			}
 		}
