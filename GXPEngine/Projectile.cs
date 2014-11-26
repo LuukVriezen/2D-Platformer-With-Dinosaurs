@@ -9,7 +9,7 @@ namespace GXPEngine
 	class Projectile : SpriteObject
     {
         //Fields of Projectile
-        float xSpeed = 0.0f;
+        float xSpeed = 1.5f;
         //float ySpeed = 0.0f;
         bool stopBeam = false;
         bool stopShot = true;
@@ -29,7 +29,7 @@ namespace GXPEngine
         int pistolHeight = 22;
         int pistolWidth = 0;
 
-        int shakeLength = 200;
+        int shakeLength = 400;
         int minShakeLength = -10;
 
         float pistolStart;
@@ -41,9 +41,7 @@ namespace GXPEngine
 
         public Projectile(Creature creature, bool isRight)
         {
-			sprite = new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1);
-
-            AddChild(sprite);
+			SetSprite(new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1));
             if (creature is Player)
             {
                 _player = (Player)creature;
@@ -54,11 +52,11 @@ namespace GXPEngine
             }
             if (isRight)
             {
-                sprite.SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
+                SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
             }
             else
             {
-                sprite.SetXY(creature.x - sprite.width, creature.y + pistolHeight);
+                SetXY(creature.x - sprite.width, creature.y + pistolHeight);
             }
 
             _isRight = isRight;
@@ -80,6 +78,8 @@ namespace GXPEngine
 
 		public Point[] GetOccupyingTiles()
 		{
+			try
+			{
 			int tileSize = 0;
 			List<Point> occupyingTiles = new List<Point>();
 
@@ -104,22 +104,33 @@ namespace GXPEngine
 			}
 
 			return occupyingTiles.ToArray();
+			}
+			catch{
+				return new Point[0];
+			}
 		}
 
 		private void CheckCollisions()
 		{
+			try
+			{
 			SpriteObject[] collidableObjects = getParentLevel().GetCollidableObjectsInTiles(GetOccupyingTiles());
 
 			foreach(SpriteObject collidableObject in collidableObjects)
 			{
-				if(sprite.HitTest(collidableObject.sprite))
+				if(collidableObject is Enemy)
 				{
-					if(collidableObject is Enemy)
+					if((collidableObject as Enemy).state != CreatureState.Dead && sprite.HitTest((collidableObject as Enemy).sprite))
 					{
 						(collidableObject as Enemy).TakeDamage(damage);
 						RemoveProjectile();
 					}
 				}
+			}
+			}
+
+			catch{
+
 			}
 		}
 
@@ -144,7 +155,7 @@ namespace GXPEngine
             if (notDoneYet)
             {
 
-                if (!(sprite.x < 0) && !(sprite.x > _player.getParentLevel().width) && (Enumerable.Range((int)pistolStart, shakeLength).Contains((int)sprite.x)) || _isRight == false && (pistolStart - shakeLength) < sprite.x)
+				if(x >= 0 && sprite.x <= _player.getParentLevel().width && (pistolStart + shakeLength) > x || _isRight == false && (pistolStart - shakeLength) < x)
                 {
                     _player.getParentLevel().x = _player.getParentLevel().x + random.Next(-10, 10);
                     _player.getParentLevel().y = _player.getParentLevel().y + random.Next(-10, 10);
@@ -165,13 +176,11 @@ namespace GXPEngine
         {
             if (_isRight)
             {
-                xSpeed = xSpeed + 25;
-                sprite.x = (_player.x + _player.sprite.width) + xSpeed;
+				Move(xSpeed * Time.deltaTime, 0);
             }
             else
             {
-                xSpeed = xSpeed - 25;
-                sprite.x = (_player.x - sprite.width) + xSpeed;
+				Move(-(xSpeed * Time.deltaTime), 0);
             }
             //Console.WriteLine(pistolBullet.x);
             //Check collision with an object.

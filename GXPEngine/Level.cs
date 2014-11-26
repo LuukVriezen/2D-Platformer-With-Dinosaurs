@@ -7,7 +7,24 @@ namespace GXPEngine
 	public class Level : Canvas
 	{
 		private int[,] tileData;
-		public int tileSize;
+		private int _tileSize;
+
+		public int tileSize
+		{
+			get
+			{
+				if(_tileSize < 1)
+				{
+					_tileSize = 1;
+				}
+				return _tileSize;
+			}
+			set
+			{
+				_tileSize = value;
+			}
+		}
+
         public Player player;
 		private LevelReader reader;
         GameOver gameover;

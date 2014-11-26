@@ -19,7 +19,7 @@ namespace GXPEngine
 		private float terminalVelocity; //The maximum speed to reach through gravity
 
 		//Misc properties
-		protected CreatureState state;
+		public CreatureState state;
 		public AnimSprite sprite;
 		protected float preMoveX;
 		protected float preMoveY;

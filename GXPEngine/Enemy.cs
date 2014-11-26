@@ -21,6 +21,7 @@ namespace GXPEngine
 			animationFramesByState.Add(CreatureState.Idle, new int[] {0});
 			animationFramesByState.Add(CreatureState.Walk, new int[] {0});
 			animationFramesByState.Add(CreatureState.Jump, new int[] {0});
+			animationFramesByState.Add(CreatureState.Dead, new int[] {0});
         }
 
 		public void TakeDamage(int damage)
@@ -35,6 +36,7 @@ namespace GXPEngine
 		private void Die()
 		{
 			Console.WriteLine("DEAD");
+			state = CreatureState.Dead;
 			//Death animation and destruction of enemy
 		}
 
@@ -42,8 +44,11 @@ namespace GXPEngine
         {
             if (enabled)
             {
-                //Movement();
-			    base.Update();
+				if(state != CreatureState.Dead)
+				{
+					//Movement();
+					base.Update();
+				}
             }
         }
 

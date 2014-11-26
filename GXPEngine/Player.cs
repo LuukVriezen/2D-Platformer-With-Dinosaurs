@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 
 namespace GXPEngine
 {
 	public class Player : Creature
 	{
-        private Projectile projectile;
         private bool isFacingRight = true;
 		public int score;
 		public int lives;
@@ -112,7 +111,10 @@ namespace GXPEngine
 					}
 					else if(collidableObject is Enemy)
 					{
-						SubtractLife();
+						if((collidableObject as Enemy).state != CreatureState.Dead)
+						{
+							SubtractLife();
+						}
 
 					}
 				}
@@ -160,6 +162,7 @@ namespace GXPEngine
 				}
 					
 				//Console.WriteLine("grounded: {0}", grounded);
+				Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
@@ -184,16 +187,7 @@ namespace GXPEngine
                 if (Time.time > (oldTime + shootDelay))
                 {
                     oldTime = Time.time;
-                    if (isFacingRight)
-                    {
-                        projectile = new Projectile(this, true);
-                        parent.AddChild(projectile);
-                    }
-                    else
-                    {
-                        projectile = new Projectile(this, false);
-                        parent.AddChild(projectile);
-                    }
+					parent.AddChild(new Projectile(this, isFacingRight));
                 }
 
             }
@@ -210,7 +204,7 @@ namespace GXPEngine
 				}
 				else
 				{
-                    //getParentLevel().isGameOver = true;
+                    getParentLevel().isGameOver = true;
 				}
 			}
 		}
