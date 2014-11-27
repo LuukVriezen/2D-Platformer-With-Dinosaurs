@@ -15,8 +15,8 @@ namespace GXPEngine
         bool stopBeam = false;
         bool stopShot = true;
         private bool _isRight = true;
-        private Player _player;
-        private Enemy _enemy;
+		private bool playerShot;
+		private Creature creature;
 
         float originX = 0;
         float originY = 0;
@@ -27,7 +27,7 @@ namespace GXPEngine
         //back by firing
 
         //Pistol hight and width from the picture
-        int pistolHeight = 22;
+        int pistolHeight;
         int pistolWidth = 0;
 
         int shakeLength = 400;
@@ -40,17 +40,19 @@ namespace GXPEngine
 
 		public int damage;
 
-        public Projectile(Creature creature, bool isRight)
+		public Projectile(Creature creature, bool isRight, int pistolHeight, bool playerShot = true)
         {
-			SetSprite(new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1));
-            if (creature is Player)
-            {
-                _player = (Player)creature;
-            }
-            else if (creature is Enemy)
-            {
-                _enemy = (Enemy)creature;
-            }
+			if(playerShot)
+			{
+				SetSprite(new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1));
+			}
+			else
+			{
+				SetSprite(new AnimSprite("../../Assets/IMG/32shuriken.png", 2, 2));
+			}
+			this.pistolHeight = pistolHeight;
+			this.playerShot = playerShot;
+            this.creature = creature;
             if (isRight)
             {
                 SetXY(creature.x + creature.sprite.width, creature.y + pistolHeight);
@@ -65,8 +67,8 @@ namespace GXPEngine
             pistolStart = sprite.x;
 
 
-            originX = _player.getParentLevel().x;
-            originY = _player.getParentLevel().y;
+			originX = creature.getParentLevel().x;
+			originY = creature.getParentLevel().y;
 
 
             //AddChild(hitWall);
@@ -139,10 +141,13 @@ namespace GXPEngine
         public void Update()
         {
 			CheckCollisions();
-            if (/*Input.GetKeyDown(Key.P) ||*/ stopShot)
-            {
-                GunShot();
-                ShakeShot();
+			if(/*Input.GetKeyDown(Key.P) ||*/ stopShot)
+			{
+				GunShot();
+				if(playerShot)
+				{
+					ShakeShot();
+				}
             }
             //if (Input.GetKeyDown(Key.B) || stopBeam)
             //{
@@ -157,18 +162,18 @@ namespace GXPEngine
             if (notDoneYet)
             {
 
-				if(x >= 0 && sprite.x <= _player.getParentLevel().width && (pistolStart + shakeLength) > x || _isRight == false && (pistolStart - shakeLength) < x)
+				if(x >= 0 && sprite.x <= creature.getParentLevel().width && (pistolStart + shakeLength) > x || _isRight == false && (pistolStart - shakeLength) < x)
                 {
-                    _player.getParentLevel().x = _player.getParentLevel().x + random.Next(-10, 10);
-                    _player.getParentLevel().y = _player.getParentLevel().y + random.Next(-10, 10);
+					creature.getParentLevel().x = creature.getParentLevel().x + random.Next(-10, 10);
+					creature.getParentLevel().y = creature.getParentLevel().y + random.Next(-10, 10);
 
                     stopShot = true;
                     notDoneYet = true;
                 }
                 else
                 {
-                    _player.getParentLevel().x = originX;
-                    _player.getParentLevel().y = originY;
+					creature.getParentLevel().x = originX;
+					creature.getParentLevel().y = originY;
                     notDoneYet = false;
                 }
             }
@@ -194,7 +199,7 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
-            if (sprite.x < _player.getParentLevel().width)
+			if (sprite.x < creature.getParentLevel().width)
             {
                 stopShot = true;
             }

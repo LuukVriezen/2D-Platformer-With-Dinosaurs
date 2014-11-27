@@ -9,6 +9,13 @@ namespace GXPEngine
     {
         bool right = true;
         int maxLengthFixedEnemy = 510;
+		EnemyType type;
+		int sightRange;
+		bool isFacingRight;
+
+		int oldTime;
+		int shootDelay;
+
 
 		private int health;
 
@@ -16,6 +23,11 @@ namespace GXPEngine
         {
 			//TEMP
 			health = 2;
+			type = EnemyType.Standard;
+			sightRange = 300;
+			isFacingRight = false;
+			oldTime = 0;
+			shootDelay = 500;
 			//TEMPEND
 			SetSprite(new AnimSprite("../../Assets/IMG/Ninjalien.png", 1, 1));
 			animationFramesByState.Add(CreatureState.Idle, new int[] {0});
@@ -40,10 +52,49 @@ namespace GXPEngine
 			//Death animation and destruction of enemy
 		}
 
+		private void AttemptShoot()
+		{
+			if (Time.time > (oldTime + shootDelay))
+			{
+				oldTime = Time.time;
+				parent.AddChild(new Projectile(this, !isFacingRight,  12, false));
+			}
+		}
+
+		private void CheckPlayerDetection()
+		{
+			Player player = getParentLevel().player;
+			int playerCenterX = (int)player.x + (player.sprite.width / 2);
+			int playerCenterY = (int)player.y + (player.sprite.height / 2);
+
+			if(((playerCenterX >= x - sightRange && playerCenterX <= x)
+			   || (playerCenterX >= x + sprite.width && playerCenterX <= x + sprite.width + sightRange))
+			   && (playerCenterY >= y && playerCenterY <= y + sprite.height))
+			{
+				isFacingRight = playerCenterX < x;
+				AttemptShoot();
+			}
+		}
+
         void Update()
         {
             if (enabled)
             {
+				if(!isFacingRight)
+				{
+					sprite.Mirror(true, false);
+				}
+				else
+				{
+					sprite.Mirror(false, false);
+				}
+
+				CheckPlayerDetection();
+
+				if(type == EnemyType.Standard)
+				{
+
+				}
 				if(state != CreatureState.Dead)
 				{
 					//Movement();
