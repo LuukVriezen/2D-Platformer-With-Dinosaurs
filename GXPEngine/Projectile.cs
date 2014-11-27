@@ -200,7 +200,6 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
-<<<<<<< Upstream, based on origin/master
             try
             {
                 if (sprite.x < creature.getParentLevel().width)
@@ -214,7 +213,6 @@ namespace GXPEngine
             }
             catch { };
 
-=======
 //			if (sprite.x < creature.getParentLevel().width)
 //            {
 //                stopShot = true;
@@ -227,7 +225,6 @@ namespace GXPEngine
 			{
 				RemoveProjectile();
 			}
->>>>>>> ed223ec Some final shit
         }
 
 		public void RemoveProjectile()

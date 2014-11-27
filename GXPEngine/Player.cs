@@ -1,10 +1,10 @@
-﻿using System;
+using System;
+using System.Linq;
 
 namespace GXPEngine
 {
 	public class Player : Creature
 	{
-        private bool isFacingRight = true;
 		public int score;
 		public int lives;
 		private bool invincible;
@@ -19,8 +19,6 @@ namespace GXPEngine
         int spriteDelay;
         int oldTimeSprite;
 
-        Sound shootSound;
-
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
@@ -34,15 +32,14 @@ namespace GXPEngine
             shootDelay = 500;
             spriteDelay = 50;
 
-            shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
-
-            shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
-
 			//TEMP
-			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
-			animationFramesByState.Add(CreatureState.Idle, new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8});
-			animationFramesByState.Add(CreatureState.Walk, new int[] {12, 13, 14, 15, 16, 17, 18, 19, 20});
-			animationFramesByState.Add(CreatureState.Jump, new int[] {24, 25, 26, 27, 28, 29});
+			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 14, 3));
+			animationFramesByState.Add(CreatureState.IdleRight, Enumerable.Range(0, 7).ToArray());
+			animationFramesByState.Add(CreatureState.IdleLeft, Enumerable.Range(7, 7).ToArray());
+			animationFramesByState.Add(CreatureState.JumpRight, Enumerable.Range(14, 5).ToArray());
+			animationFramesByState.Add(CreatureState.JumpLeft, Enumerable.Range(23, 5).ToArray());
+			animationFramesByState.Add(CreatureState.WalkRight, Enumerable.Range(28, 7).ToArray());
+			animationFramesByState.Add(CreatureState.WalkLeft, Enumerable.Range(35, 7).ToArray());
 			//TEMPEND
 		}
 
@@ -68,7 +65,7 @@ namespace GXPEngine
 
 		private void CheckJumpInput()
 		{
-			if(Input.GetKeyDown(Key.UP))
+			if(Input.GetKeyDown(Key.UP) && grounded)
 			{
 				ySpeed = -jumpHeight;
 				grounded = false;
@@ -121,7 +118,10 @@ namespace GXPEngine
 						{
 							SubtractLife();
 						}
-
+					}
+					else if(collidableObject is Projectile)
+					{
+						SubtractLife();
 					}
 				}
 			}
@@ -159,6 +159,7 @@ namespace GXPEngine
 
 		new void Update()
 		{
+			Console.WriteLine(ySpeed);
 			if(enabled)
 			{
 				UpdateInvincibility();
@@ -169,14 +170,6 @@ namespace GXPEngine
 					
 				//Console.WriteLine("grounded: {0}", grounded);
 				//Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
-				if(!isFacingRight)
-				{
-					sprite.Mirror(true, false);
-				}
-				else
-				{
-					sprite.Mirror(false, false);
-				}
 				CheckMovementInput();
 				CheckJumpInput();
 				Shoot();
@@ -189,12 +182,11 @@ namespace GXPEngine
             if (Input.GetKeyDown(Key.P) && Time.time > (oldTimeSprite + spriteDelay))
             {
                 oldTimeSprite = Time.time;
-                shootSound.Play();
                 sprite.SetFrame(0);
                 if (Time.time > (oldTime + shootDelay))
                 {
                     oldTime = Time.time;
-					parent.AddChild(new Projectile(this, isFacingRight, 22));
+					parent.AddChild(new Projectile(this, isFacingRight, 22, 1.5f));
                 }
 
             }
