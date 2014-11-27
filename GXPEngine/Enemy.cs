@@ -15,6 +15,9 @@ namespace GXPEngine
 		int oldTime;
 		int shootDelay;
 
+        Sound StarSound;
+        Sound deadSound;
+
 
 		private int health;
 
@@ -36,6 +39,9 @@ namespace GXPEngine
 			animationFramesByState.Add(CreatureState.JumpRight, new int[] {0});
 			animationFramesByState.Add(CreatureState.JumpLeft, new int[] {0});
 			animationFramesByState.Add(CreatureState.Dead, new int[] {0});
+
+            StarSound = new Sound("../../Assets/Sounds/Star.mp3");
+            deadSound = new Sound("../../Assets/Sounds/dyingalien.mp3");
         }
 
 		public void TakeDamage(int damage)
@@ -51,13 +57,18 @@ namespace GXPEngine
 		{
 			Console.WriteLine("DEAD");
 			state = CreatureState.Dead;
+            deadSound.Play();
 			//Death animation and destruction of enemy
+
+            //score
+            getParentLevel().player.score += 100;
 		}
 
 		private void AttemptShoot()
 		{
 			if (Time.time > (oldTime + shootDelay))
 			{
+                StarSound.Play();
 				oldTime = Time.time;
 				parent.AddChild(new Projectile(this, !isFacingRight, 12, 0.7f, false));
 			}

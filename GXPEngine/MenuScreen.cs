@@ -14,12 +14,11 @@ namespace GXPEngine
         bool isKeyDown = false;
         bool isKeyUp = true;
 
-        bool inGame = true;
-        public MenuScreen( bool ingame)
+        public bool inGame = true;
+        public MenuScreen( )
         {
             glow = new Sprite("../../Assets/IMG/menu light.png");
             menusprite = new Sprite("../../Assets/IMG/Menu.png");
-            inGame = ingame;
 
             Canvas menuCanvas = new Canvas(game.width, game.height);
             menusprite.width = game.width;
@@ -32,7 +31,7 @@ namespace GXPEngine
 
         void Update()
         {
-            if (Input.GetKey(Key.DOWN))
+            if (Input.GetKeyDown(Key.DOWN))
             {
                 isKeyDown = true;
                 isKeyUp = false;
@@ -44,7 +43,7 @@ namespace GXPEngine
                 glow.height = 90;
 
             }
-            if (Input.GetKey(Key.UP))
+            if (Input.GetKeyDown(Key.UP))
             {
                 isKeyDown = false;
                 isKeyUp = true;

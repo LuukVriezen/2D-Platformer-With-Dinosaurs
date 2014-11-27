@@ -392,7 +392,7 @@ namespace GXPEngine
             gameover = new GameOver(timer);
             //gameover.x = player.x - player.sprite.width - 20;
             gameover.x = -x;
-            gameover.y = y+300;
+            gameover.y = -y + 100;
             //gameover.y = game.y;
             this.AddChild(gameover);
 

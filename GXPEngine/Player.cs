@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using GXPEngine;
 
 namespace GXPEngine
 {
@@ -19,6 +20,9 @@ namespace GXPEngine
         int spriteDelay;
         int oldTimeSprite;
 
+        Sound shootSound;
+        Sound playerDeadSound;
+
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
@@ -31,6 +35,9 @@ namespace GXPEngine
 			transparent = false;
             shootDelay = 500;
             spriteDelay = 50;
+
+            shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
+            playerDeadSound = new Sound("../../Assets/Sounds/PlayerDead.mp3");
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 14, 3));
@@ -65,7 +72,7 @@ namespace GXPEngine
 
 		private void CheckJumpInput()
 		{
-			if(Input.GetKeyDown(Key.UP) && grounded)
+			if(Input.GetKey(Key.UP) && grounded)
 			{
 				ySpeed = -jumpHeight;
 				grounded = false;
@@ -110,6 +117,7 @@ namespace GXPEngine
 					}
 					else if(collidableObject is Lava)
 					{
+                        playerDeadSound.Play();
                         getParentLevel().isGameOver = true;
 					}
 					else if(collidableObject is Enemy)
@@ -185,6 +193,7 @@ namespace GXPEngine
                 sprite.SetFrame(0);
                 if (Time.time > (oldTime + shootDelay))
                 {
+                    shootSound.Play();
                     oldTime = Time.time;
 					parent.AddChild(new Projectile(this, isFacingRight, 22, 1.5f));
                 }
@@ -203,6 +212,7 @@ namespace GXPEngine
 				}
 				else
 				{
+                    playerDeadSound.Play();
                     getParentLevel().isGameOver = true;
 				}
 			}

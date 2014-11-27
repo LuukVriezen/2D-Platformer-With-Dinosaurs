@@ -15,6 +15,8 @@ namespace GXPEngine
         Cutscenes cutscenes;
         LeaderBoard leaderBoard;
 
+        Sound backgroundSound;
+
         bool isPressed = false;
         bool makeLevel = true;
 
@@ -26,13 +28,14 @@ namespace GXPEngine
 
 		public MyGame () : base(640, 480, false)
 		{
-
+            backgroundSound = new Sound("../../Assets/Sounds/NewBackground.mp3", true, true);
+            backgroundSound.Play();
             background = new Background(game.width, game.height);
             this.AddChild(background);
 
             cutscenes = new Cutscenes(game.width, game.height);
 
-            menuScreen = new MenuScreen(false);
+            menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
             leaderBoard = new LeaderBoard(game.width, game.height);
@@ -51,6 +54,7 @@ namespace GXPEngine
             }
             if (Input.GetKeyDown(Key.S) || isPressed)
             {
+                menuScreen.inGame = true;
                 bool isLeaderBoard = menuScreen.LeaderBoard();
                 leaderBoard.Destroy();
                 if (makeLevel && isLeaderBoard == false)
@@ -114,7 +118,7 @@ namespace GXPEngine
 
         public void MakeMenu()
         {
-            menuScreen = new MenuScreen(false);
+            menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
         }
 

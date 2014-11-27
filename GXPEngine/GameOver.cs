@@ -16,7 +16,7 @@ namespace GXPEngine
             gameOverSprite.height = game.height-100;
             //gameOverSprite.SetXY( - (gameOverSprite.width - 25), 0);
             gameOverCanvas.graphics.Clear(Color.Empty);
-            gameOverCanvas.graphics.DrawString("Try Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200, game.height / 2));
+            gameOverCanvas.graphics.DrawString("Try Again? " + counter + "", new Font("Arial", 20), Brushes.White, new PointF((game.width / 2) - 200,0));
             AddChild(gameOverSprite);
         }
     }

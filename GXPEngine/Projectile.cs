@@ -221,10 +221,14 @@ namespace GXPEngine
 //            {
 //				RemoveProjectile();
 //            }
-			if(x > -(getParentLevel().x) + getParentLevel().width || x + sprite.width < -(getParentLevel().x))
-			{
-				RemoveProjectile();
-			}
+            try
+            {
+                if (x > -(getParentLevel().x) + getParentLevel().width || x + sprite.width < -(getParentLevel().x))
+                {
+                    RemoveProjectile();
+                }
+            }
+            catch { };
         }
 
 		public void RemoveProjectile()
