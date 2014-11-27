@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,7 @@ namespace GXPEngine
 	class Projectile : SpriteObject
     {
         //Fields of Projectile
-        float xSpeed = 1.5f;
+        float xSpeed;
         //float ySpeed = 0.0f;
         bool stopBeam = false;
         bool stopShot = true;
@@ -40,8 +40,9 @@ namespace GXPEngine
 
 		public int damage;
 
-		public Projectile(Creature creature, bool isRight, int pistolHeight, bool playerShot = true)
+		public Projectile(Creature creature, bool isRight, int pistolHeight, float xSpeed, bool playerShot = true)
         {
+			this.xSpeed = xSpeed;
 			if(playerShot)
 			{
 				SetSprite(new AnimSprite("../../Assets/IMG/32DinoProjectile.png", 1, 1));
@@ -199,6 +200,7 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
+<<<<<<< Upstream, based on origin/master
             try
             {
                 if (sprite.x < creature.getParentLevel().width)
@@ -212,6 +214,20 @@ namespace GXPEngine
             }
             catch { };
 
+=======
+//			if (sprite.x < creature.getParentLevel().width)
+//            {
+//                stopShot = true;
+//            }
+//            else
+//            {
+//				RemoveProjectile();
+//            }
+			if(x > -(getParentLevel().x) + getParentLevel().width || x + sprite.width < -(getParentLevel().x))
+			{
+				RemoveProjectile();
+			}
+>>>>>>> ed223ec Some final shit
         }
 
 		public void RemoveProjectile()
@@ -219,7 +235,7 @@ namespace GXPEngine
 			//pistolBullet.SetXY(_player.x, _player.y);
 			xSpeed = 0;
 			stopShot = false;
-			sprite.Destroy();
+			this.Destroy();
 		}
 
         public void BeamShot()

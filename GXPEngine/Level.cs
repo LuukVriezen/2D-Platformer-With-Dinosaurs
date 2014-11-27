@@ -6,7 +6,7 @@ namespace GXPEngine
 {
 	public class Level : Canvas
 	{
-		private int[,] tileData;
+		public int[,] tileData;
 		private int _tileSize;
 
 		public int tileSize
@@ -61,7 +61,7 @@ namespace GXPEngine
                 FillLevel();
 		}
 
-		protected MyGame getParentMyGame()
+		public MyGame getParentMyGame()
 		{
 			return parent as MyGame;
 		}
@@ -148,19 +148,35 @@ namespace GXPEngine
                             this.AddChild(platform);
                             break;
 
+<<<<<<< Upstream, based on origin/master
                         case 11:
                             platform = new Platform(new Point(x, y));
                             platform.SetXY(x * tileSize, y * tileSize);
                             platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground5.png", 1, 1));
                             this.AddChild(platform);
                             break;
+=======
+						case 11:
+							player = new Player(6f, 2, 0.5f, 1.5f);
+							player.SetXY(x * tileSize, y * tileSize);
+							this.AddChild(player);
+							break;
+>>>>>>> ed223ec Some final shit
 
+<<<<<<< Upstream, based on origin/master
                         case 12:
                             lava = new Lava(new Point(x, y));
                             lava.SetXY(x * tileSize, y * tileSize);
                             lava.SetSprite(new AnimSprite("../../Assets/IMG/32lavafill.png", 1, 1));
                             this.AddChild(lava);
                             break;
+=======
+						case 12:
+							enemy = new Enemy(6f, 2, 0.5f, 1.5f);
+							enemy.SetXY(x * tileSize, y * tileSize);
+							this.AddChild(enemy);
+							break;
+>>>>>>> ed223ec Some final shit
 
                         case 13:
                             lava = new Lava(new Point(x, y));

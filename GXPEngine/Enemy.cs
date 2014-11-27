@@ -11,7 +11,6 @@ namespace GXPEngine
         int maxLengthFixedEnemy = 510;
 		EnemyType type;
 		int sightRange;
-		bool isFacingRight;
 
 		int oldTime;
 		int shootDelay;
@@ -23,16 +22,19 @@ namespace GXPEngine
         {
 			//TEMP
 			health = 2;
-			type = EnemyType.Standard;
+			type = EnemyType.Jumping;
 			sightRange = 300;
 			isFacingRight = false;
 			oldTime = 0;
-			shootDelay = 500;
+			shootDelay = 1000;
 			//TEMPEND
 			SetSprite(new AnimSprite("../../Assets/IMG/Ninjalien.png", 1, 1));
-			animationFramesByState.Add(CreatureState.Idle, new int[] {0});
-			animationFramesByState.Add(CreatureState.Walk, new int[] {0});
-			animationFramesByState.Add(CreatureState.Jump, new int[] {0});
+			animationFramesByState.Add(CreatureState.IdleRight, new int[] {0});
+			animationFramesByState.Add(CreatureState.WalkRight, new int[] {0});
+			animationFramesByState.Add(CreatureState.JumpRight, new int[] {0});
+			animationFramesByState.Add(CreatureState.IdleLeft, new int[] {0});
+			animationFramesByState.Add(CreatureState.WalkLeft, new int[] {0});
+			animationFramesByState.Add(CreatureState.JumpLeft, new int[] {0});
 			animationFramesByState.Add(CreatureState.Dead, new int[] {0});
         }
 
@@ -57,7 +59,7 @@ namespace GXPEngine
 			if (Time.time > (oldTime + shootDelay))
 			{
 				oldTime = Time.time;
-				parent.AddChild(new Projectile(this, !isFacingRight,  12, false));
+				parent.AddChild(new Projectile(this, !isFacingRight,  12, 0.7f, false));
 			}
 		}
 
@@ -76,30 +78,42 @@ namespace GXPEngine
 			}
 		}
 
+		private void Jump()
+		{
+			if(grounded)
+			{
+				ySpeed = -jumpHeight;
+			}
+		}
+
         void Update()
         {
             if (enabled)
             {
-				if(!isFacingRight)
-				{
-					sprite.Mirror(true, false);
-				}
-				else
-				{
-					sprite.Mirror(false, false);
-				}
-
-				CheckPlayerDetection();
-
-				if(type == EnemyType.Standard)
-				{
-
-				}
 				if(state != CreatureState.Dead)
 				{
+					if(!isFacingRight)
+					{
+						sprite.Mirror(true, false);
+					}
+					else
+					{
+						sprite.Mirror(false, false);
+					}
+
+					if(type == EnemyType.Standard)
+					{
+						CheckPlayerDetection();
+					}
+					else if(type == EnemyType.Jumping)
+					{
+						CheckPlayerDetection();
+						Jump();
+					}
+
 					//Movement();
-					base.Update();
 				}
+				base.Update();
             }
         }
 

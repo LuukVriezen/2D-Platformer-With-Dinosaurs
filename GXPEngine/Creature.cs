@@ -31,6 +31,10 @@ namespace GXPEngine
 
         public bool enabled;
 
+		int[,] tileData;
+
+		protected bool isFacingRight = true;
+
 
 		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
 		{
@@ -44,7 +48,7 @@ namespace GXPEngine
 			this.grounded = false;
 			this.weight = weight;
 			this.terminalVelocity = terminalVelocity;
-			this.state = CreatureState.Idle;
+			this.state = CreatureState.IdleRight;
 			this.sprite = null;
 			this.animationFramesByState = new Dictionary<CreatureState, int[]>();
 			this.currentAnimationFrames = new int[0];
@@ -56,15 +60,15 @@ namespace GXPEngine
 		{
 			if(ySpeed != 0)
 			{
-				return CreatureState.Jump;
+				return !isFacingRight ? CreatureState.JumpRight : CreatureState.JumpLeft;
 			}
 			else if(xSpeed != 0)
 			{
-				return CreatureState.Walk;
+				return !isFacingRight ? CreatureState.WalkRight : CreatureState.WalkLeft;
 			}
 			else
 			{
-				return CreatureState.Idle;
+				return !isFacingRight ? CreatureState.IdleRight : CreatureState.IdleLeft;
 			}
 		}
 
@@ -78,11 +82,11 @@ namespace GXPEngine
 		{
 			//Only apply gravity if ySpeed is not already at or above terminalVelocity
 			//If the terminalVelocity is already reached then gravity will do nothing
-			if(ySpeed < terminalVelocity || grounded)
+			if(ySpeed < terminalVelocity || !grounded)
 			{
 				//If adding the weight to current ySpeed exceeds the terminalVelocity then set the ySpeed to the terminalVelocity value
 				//Otherwise add weight to ySpeed
-				ySpeed = (ySpeed + weight > terminalVelocity) ? terminalVelocity : ySpeed + weight;
+				ySpeed = (ySpeed + weight / 1000 * Time.deltaTime > terminalVelocity) ? terminalVelocity : ySpeed + weight / 1000 * Time.deltaTime;
 			}
 		}
 
@@ -100,8 +104,8 @@ namespace GXPEngine
 				//TODO: Error handling
 			}
 
-			Point topLeftCoordinates = new Point((int)x / tileSize, (int)y / tileSize);
-			Point bottomRightCoordinates = new Point(((int)x + sprite.width) / tileSize, ((int)y + sprite.height) / tileSize);
+			Point topLeftCoordinates = new Point((int)Math.Ceiling(x / tileSize), (int)Math.Ceiling(y / tileSize));
+			Point bottomRightCoordinates = new Point(((int)Math.Ceiling(x + sprite.width) / tileSize), ((int)Math.Ceiling(y + sprite.height - 1)) / tileSize);
 
 			for(int tileX = topLeftCoordinates.X; tileX <= bottomRightCoordinates.X; tileX++)
 			{
@@ -182,13 +186,17 @@ namespace GXPEngine
 
 		protected void Update()
 		{
+			this.tileData = getParentLevel().tileData;
             if (enabled)
             {
-                CreatureState newState = GetCreatureState();
-                if (state != newState || currentAnimationFrames.Length <= 0)
-                {
-                    SetCreatureState(newState);
-                }
+				if(state != CreatureState.Dead)
+				{
+					CreatureState newState = GetCreatureState();
+					if(state != newState || currentAnimationFrames.Length <= 0)
+					{
+						SetCreatureState(newState);
+					}
+				}
 
                 ApplyAnimation();
 
@@ -202,16 +210,19 @@ namespace GXPEngine
                     ApplyGravity();
                 }
 
-                GameBoundaries();
+//                GameBoundaries();
 
                 preMoveX = this.x;
                 preMoveY = this.y;
-				float collisionChecksPerFrame = 1;
+				float collisionChecksPerFrame = 10;
+
+				float xSpeedDelta = xSpeed * Time.deltaTime;
+				float ySpeedDelta = ySpeed * Time.deltaTime;
 
                 for (int i = 0; i < collisionChecksPerFrame; i++)
                 {
-                    Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
-                        (ySpeed * Time.deltaTime) / collisionChecksPerFrame);
+					Move(xSpeedDelta / collisionChecksPerFrame,
+						ySpeedDelta / collisionChecksPerFrame);
 
                     CheckCollisions();
                 }

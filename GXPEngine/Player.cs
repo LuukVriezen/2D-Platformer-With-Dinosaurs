@@ -4,7 +4,6 @@ namespace GXPEngine
 {
 	public class Player : Creature
 	{
-        private bool isFacingRight = true;
 		public int score;
 		public int lives;
 		private bool invincible;
@@ -37,10 +36,13 @@ namespace GXPEngine
             shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
 
 			//TEMP
-			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
-			animationFramesByState.Add(CreatureState.Idle, new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8});
-			animationFramesByState.Add(CreatureState.Walk, new int[] {12, 13, 14, 15, 16, 17, 18, 19, 20});
-			animationFramesByState.Add(CreatureState.Jump, new int[] {24, 25, 26, 27, 28, 29});
+			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 14, 3));
+			animationFramesByState.Add(CreatureState.IdleLeft, new int[] {0, 1, 2, 3, 4, 5, 6, 7});
+			animationFramesByState.Add(CreatureState.IdleRight, new int[] {8, 9, 10, 11, 12, 13, 14, 15});
+			animationFramesByState.Add(CreatureState.JumpLeft, new int[] {16, 17, 18, 19, 20});
+			animationFramesByState.Add(CreatureState.JumpRight, new int[] {25, 26, 27, 28, 29});
+			animationFramesByState.Add(CreatureState.WalkLeft, new int[] {30, 31, 32, 33, 34, 35, 36, 37});
+			animationFramesByState.Add(CreatureState.WalkRight, new int[] {38, 39, 40, 41, 42, 43, 44, 45});
 			//TEMPEND
 		}
 
@@ -66,7 +68,7 @@ namespace GXPEngine
 
 		private void CheckJumpInput()
 		{
-			if(Input.GetKeyDown(Key.UP))
+			if(Input.GetKeyDown(Key.UP) && grounded)
 			{
 				ySpeed = -jumpHeight;
 				grounded = false;
@@ -119,7 +121,10 @@ namespace GXPEngine
 						{
 							SubtractLife();
 						}
-
+					}
+					else if(collidableObject is Projectile)
+					{
+						SubtractLife();
 					}
 				}
 			}
@@ -157,6 +162,7 @@ namespace GXPEngine
 
 		new void Update()
 		{
+			Console.WriteLine(ySpeed);
 			if(enabled)
 			{
 				UpdateInvincibility();
@@ -167,14 +173,6 @@ namespace GXPEngine
 					
 				//Console.WriteLine("grounded: {0}", grounded);
 				//Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
-				if(!isFacingRight)
-				{
-					sprite.Mirror(true, false);
-				}
-				else
-				{
-					sprite.Mirror(false, false);
-				}
 				CheckMovementInput();
 				CheckJumpInput();
 				Shoot();
@@ -192,7 +190,7 @@ namespace GXPEngine
                 if (Time.time > (oldTime + shootDelay))
                 {
                     oldTime = Time.time;
-					parent.AddChild(new Projectile(this, isFacingRight, 22));
+					parent.AddChild(new Projectile(this, isFacingRight, 22, 1.5f));
                 }
 
             }
