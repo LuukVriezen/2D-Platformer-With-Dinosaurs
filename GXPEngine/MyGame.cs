@@ -12,6 +12,7 @@ namespace GXPEngine
         MenuScreen menuScreen;
         MessageBox messageBox;
         Background background;
+        Cutscenes cutscenes;
 
         bool isPressed = false;
         bool makeLevel = true;
@@ -22,24 +23,29 @@ namespace GXPEngine
 
 		public MyGame () : base(640, 480, false)
 		{
-            
+
             background = new Background(game.width, game.height);
             this.AddChild(background);
 
             menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
+            //cutscenes = new Cutscenes(game.width, game.height);
+            //this.AddChild(cutscenes);
+
 			//this.AddChild(new Collectable());
 		}
 		
 		void Update () 
         {
+            //cutscenes.OpeningScene();
             background.BackgroundAnimation();
             if (Input.GetKey(Key.S) || isPressed)
             {
+
                 bool isLeaderBoard = menuScreen.LeaderBoard();
                 if (makeLevel && isLeaderBoard == false)
-                { 
+                {
                     MakeLevel();
                     makeLevel = false;
                     menuScreen.Destroy();
@@ -64,7 +70,7 @@ namespace GXPEngine
                 if (dead)
                 {
                     HUDCanvas.Destroy();
-                    messageBox.Destroy();
+                    //messageBox.Destroy();
                     MakeMenu();
                     makeLevel = true;
                     dead = true;
@@ -76,14 +82,14 @@ namespace GXPEngine
                 {
                     HUDCanvas.Score(level.player.score);
                     HUDCanvas.Lives(level.player.lives);
-                    messageBox.Message();
+                    //messageBox.Message();
                 }
                 if (isLeaderBoard)
                 {
                     //leaderboard
                 }
             }
-		}
+        }
 
         public void MakeMenu()
         {
@@ -95,8 +101,8 @@ namespace GXPEngine
         {
             HUDCanvas = new HUD(this.width, this.height);
             this.AddChild(HUDCanvas);
-            messageBox = new MessageBox(this.width, this.height);
-            this.AddChild(messageBox);
+            //messageBox = new MessageBox(this.width, this.height);
+            //this.AddChild(messageBox);
 
 			//TEMP
 			int tileSize = 32;

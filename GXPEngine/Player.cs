@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace GXPEngine
 {
@@ -19,6 +19,8 @@ namespace GXPEngine
         int spriteDelay;
         int oldTimeSprite;
 
+        Sound shootSound;
+
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
 			score = 0;
@@ -31,6 +33,8 @@ namespace GXPEngine
 			transparent = false;
             shootDelay = 500;
             spriteDelay = 50;
+
+            shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 6, 6));
@@ -162,7 +166,7 @@ namespace GXPEngine
 				}
 					
 				//Console.WriteLine("grounded: {0}", grounded);
-				Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
+				//Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
@@ -176,13 +180,14 @@ namespace GXPEngine
 				Shoot();
 				base.Update();
 			}
-		}
+		}   
 
         private void Shoot()
         {
             if (Input.GetKeyDown(Key.P) && Time.time > (oldTimeSprite + spriteDelay))
             {
                 oldTimeSprite = Time.time;
+                shootSound.Play();
                 sprite.SetFrame(0);
                 if (Time.time > (oldTime + shootDelay))
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using GXPEngine;
 
 namespace GXPEngine
 {
@@ -66,6 +67,7 @@ namespace GXPEngine
 
             originX = _player.getParentLevel().x;
             originY = _player.getParentLevel().y;
+
 
             //AddChild(hitWall);
             //hitWall.SetXY(game.width - hitWall.width - 200, game.height -hitWall.height);

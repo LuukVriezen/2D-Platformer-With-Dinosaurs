@@ -12,7 +12,7 @@ namespace GXPEngine
 
         float frame = 0.0f;
         int firstFrame = 0;
-        int lastFrame = 15;
+        int lastFrame = 13;
 
         public Background(int width, int height)
         {
