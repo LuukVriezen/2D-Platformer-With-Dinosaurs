@@ -272,6 +272,9 @@ namespace GXPEngine
                 {
                     y = 100 - player.y;
                 }
+                //Console.WriteLine("P: "+ player.x);
+                //Console.WriteLine("X: "+x);
+
                 //{
                 //    y = 75;
                 //}

@@ -162,7 +162,7 @@ namespace GXPEngine
 				}
 					
 				//Console.WriteLine("grounded: {0}", grounded);
-				Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
+				//Console.WriteLine("x: {0} - y: {1}", sprite.x, sprite.y);
 				if(!isFacingRight)
 				{
 					sprite.Mirror(true, false);
@@ -187,7 +187,7 @@ namespace GXPEngine
                 if (Time.time > (oldTime + shootDelay))
                 {
                     oldTime = Time.time;
-					parent.AddChild(new Projectile(this, isFacingRight));
+					parent.AddChild(new Projectile(this, isFacingRight, 22));
                 }
 
             }

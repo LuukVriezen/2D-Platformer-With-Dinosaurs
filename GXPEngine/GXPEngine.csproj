@@ -78,6 +78,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="LevelReader.cs" />
     <Compile Include="SpriteObject.cs" />
+    <Compile Include="EnemyType.cs" />
   </ItemGroup>
   <ItemGroup />
 </Project>
