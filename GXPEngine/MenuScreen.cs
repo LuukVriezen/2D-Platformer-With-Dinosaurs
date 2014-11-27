@@ -21,7 +21,7 @@ namespace GXPEngine
             Canvas menuCanvas = new Canvas(game.width, game.height);
             menusprite.width = game.width;
             menusprite.height = game.height;
-            menuCanvas.graphics.Clear(Color.Empty);
+            menuCanvas.graphics.Clear(Color.Transparent);
             //menuCanvas.graphics.DrawString("Insert coin(space) to continue", new Font("Arial", 20), Brushes.White, new PointF((game.width/2) - 200, game.height / 2));
             AddChild(glow);
             AddChild(menusprite);

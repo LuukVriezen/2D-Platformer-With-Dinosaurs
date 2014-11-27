@@ -13,6 +13,7 @@ namespace GXPEngine
         MessageBox messageBox;
         Background background;
         Cutscenes cutscenes;
+        LeaderBoard leaderBoard;
 
         bool isPressed = false;
         bool makeLevel = true;
@@ -30,6 +31,8 @@ namespace GXPEngine
             menuScreen = new MenuScreen();
             this.AddChild(menuScreen);
 
+            leaderBoard = new LeaderBoard(game.width, game.height);
+
             //cutscenes = new Cutscenes(game.width, game.height);
             //this.AddChild(cutscenes);
 
@@ -40,16 +43,26 @@ namespace GXPEngine
         {
             //cutscenes.OpeningScene();
             background.BackgroundAnimation();
+            if (Input.GetKeyDown(Key.W))
+            {
+                leaderBoard.Destroy();
+                MakeMenu();
+            }
             if (Input.GetKey(Key.S) || isPressed)
             {
-
                 bool isLeaderBoard = menuScreen.LeaderBoard();
+                leaderBoard.Destroy();
                 if (makeLevel && isLeaderBoard == false)
                 {
                     MakeLevel();
                     makeLevel = false;
                     menuScreen.Destroy();
                     isPressed = true;
+                }
+                if (isLeaderBoard)
+                {
+                    menuScreen.Destroy();
+                    MakeScoreBoard();
                 }
                 if (restartLevel)
                 {
@@ -84,11 +97,13 @@ namespace GXPEngine
                     HUDCanvas.Lives(level.player.lives);
                     //messageBox.Message();
                 }
-                if (isLeaderBoard)
-                {
-                    //leaderboard
-                }
             }
+        }
+
+        public void MakeScoreBoard()
+        {
+            leaderBoard = new LeaderBoard(game.width, game.height);
+            this.AddChild(leaderBoard);
         }
 
         public void MakeMenu()
