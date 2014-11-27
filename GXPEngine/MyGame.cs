@@ -32,7 +32,7 @@ namespace GXPEngine
 
             cutscenes = new Cutscenes(game.width, game.height);
 
-            menuScreen = new MenuScreen();
+            menuScreen = new MenuScreen(false);
             this.AddChild(menuScreen);
 
             leaderBoard = new LeaderBoard(game.width, game.height);
@@ -49,26 +49,15 @@ namespace GXPEngine
                 leaderBoard.Destroy();
                 MakeMenu();
             }
-            if (Input.GetKey(Key.S) || isPressed)
+            if (Input.GetKeyDown(Key.S) || isPressed)
             {
                 bool isLeaderBoard = menuScreen.LeaderBoard();
                 leaderBoard.Destroy();
                 if (makeLevel && isLeaderBoard == false)
                 {
-                    //if (isCutSene)
-                    //{
-                    //    background.Destroy();
-                    //    AddCutScene();
-                    //    isCutSene = cutscenes.OpeningScene();
-                    //    stilldead = true;
-                    //}
-                    //else
-                    //{
-                    //    menuScreen.Destroy();
-                        MakeLevel();
-                        makeLevel = false;
-                        stilldead = false;
-                    //}
+                    MakeLevel();
+                    makeLevel = false;
+                    stilldead = false;
                     isPressed = true;
                 }
                 if (isLeaderBoard)
@@ -125,7 +114,7 @@ namespace GXPEngine
 
         public void MakeMenu()
         {
-            menuScreen = new MenuScreen();
+            menuScreen = new MenuScreen(false);
             this.AddChild(menuScreen);
         }
 

@@ -159,7 +159,7 @@ namespace GXPEngine
 
 		new void Update()
 		{
-			Console.WriteLine(ySpeed);
+			//Console.WriteLine(grounded);
 			if(enabled)
 			{
 				UpdateInvincibility();
