@@ -4,12 +4,9 @@ namespace GXPEngine
 {
 	public enum CreatureState
 	{
-		IdleLeft,
-		IdleRight,
-		WalkLeft,
-		WalkRight,
-		JumpLeft,
-		JumpRight,
+		Idle,
+		Walk,
+		Jump,
 		Dead
 	}
 }
