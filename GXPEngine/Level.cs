@@ -80,148 +80,149 @@ namespace GXPEngine
 					switch(tileData[y, x])
 					{
 						case 1:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches1.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches1.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 2:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches2.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 2:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches2.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 3:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches3.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 3:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches3.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 4:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches4.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 4:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32branches4.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 5:
-                            enemy = new Enemy(0.1f, 2, 0.25f, 1.3f);
-                            enemy.SetXY(x * tileSize, y * tileSize);
-                            this.AddChild(enemy);
-                            break;
+						case 5:
+							enemy = new Enemy(0.1f, 2, 0.25f, 1.3f);
+							enemy.SetXY(x * tileSize, y * tileSize);
+							this.AddChild(enemy);
+							break;
 
-                        case 6:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32groundfill.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 6:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32groundfill.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 7:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground1.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 7:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground1.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 8:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground2.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 8:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground2.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 9:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground3.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 9:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground3.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 10:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground4.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 10:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground4.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 11:
-                            platform = new Platform(new Point(x, y));
-                            platform.SetXY(x * tileSize, y * tileSize);
-                            platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground5.png", 1, 1));
-                            this.AddChild(platform);
-                            break;
+						case 11:
+							platform = new Platform(new Point(x, y));
+							platform.SetXY(x * tileSize, y * tileSize);
+							platform.SetSprite(new AnimSprite("../../Assets/IMG/32ground5.png", 1, 1));
+							this.AddChild(platform);
+							break;
 
-                        case 12:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32lavafill.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 12:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32lavafill.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 13:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava1.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 13:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava1.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 14:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava2.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 14:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava2.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 15:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava3.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 15:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava3.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 16:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava4.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 16:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32lava4.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 17:
-                            player = new Player(0.1f, 2, 0.25f, 1.3f);
-                            player.SetXY(x * tileSize, y * tileSize);
-                            this.AddChild(player);
-                            break;
+						case 17:
+							player = new Player(0.1f, 2, 0.25f, 1.3f);
+							player.SetXY(x * tileSize, y * tileSize);
+							this.AddChild(player);
+							break;
 
-                        case 18:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile1.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 18:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile1.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 19:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile2.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 19:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile2.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 20:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            this.AddChild(lava);
-                            break;
+						case 20:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile3.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
-                        case 21:
-                            lava = new Lava(new Point(x, y));
-                            lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile4.png", 1, 1));
-                            this.AddChild(lava);
-                            break;
+						case 21:
+							lava = new Lava(new Point(x, y));
+							lava.SetXY(x * tileSize, y * tileSize);
+							lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile4.png", 1, 1));
+							this.AddChild(lava);
+							break;
 
                         case 22:
                             flag = new Flag();

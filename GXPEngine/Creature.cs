@@ -31,6 +31,8 @@ namespace GXPEngine
 
         public bool enabled;
 
+		protected bool isFacingRight;
+
 
 		public Creature(float weight, float terminalVelocity, float walkSpeed, float jumpHeight)
 		{
@@ -44,27 +46,28 @@ namespace GXPEngine
 			this.grounded = false;
 			this.weight = weight;
 			this.terminalVelocity = terminalVelocity;
-			this.state = CreatureState.Idle;
+			this.state = CreatureState.IdleRight;
 			this.sprite = null;
 			this.animationFramesByState = new Dictionary<CreatureState, int[]>();
 			this.currentAnimationFrames = new int[0];
 			this.currentAnimationFramesIndex = 0;
             this.enabled = true;
+			this.isFacingRight = true;
 		}
 
 		protected virtual CreatureState GetCreatureState()
 		{
 			if(ySpeed != 0)
 			{
-				return CreatureState.Jump;
+				return isFacingRight ? CreatureState.JumpRight : CreatureState.JumpLeft;
 			}
 			else if(xSpeed != 0)
 			{
-				return CreatureState.Walk;
+				return isFacingRight ? CreatureState.WalkRight : CreatureState.WalkLeft;
 			}
 			else
 			{
-				return CreatureState.Idle;
+				return isFacingRight ? CreatureState.IdleRight : CreatureState.IdleLeft;
 			}
 		}
 
@@ -100,8 +103,8 @@ namespace GXPEngine
 				//TODO: Error handling
 			}
 
-			Point topLeftCoordinates = new Point((int)x / tileSize, (int)y / tileSize);
-			Point bottomRightCoordinates = new Point(((int)x + sprite.width) / tileSize, ((int)y + sprite.height) / tileSize);
+			Point topLeftCoordinates = new Point((int)Math.Ceiling(x / tileSize), (int)Math.Ceiling((y - 1) / tileSize));
+			Point bottomRightCoordinates = new Point((int)Math.Ceiling((x + sprite.width) / tileSize), (int)Math.Ceiling((y + sprite.height - 1) / tileSize));
 
 			for(int tileX = topLeftCoordinates.X; tileX <= bottomRightCoordinates.X; tileX++)
 			{
@@ -182,6 +185,7 @@ namespace GXPEngine
 
 		protected void Update()
 		{
+
             if (enabled)
             {
                 CreatureState newState = GetCreatureState();
@@ -206,12 +210,15 @@ namespace GXPEngine
 
                 preMoveX = this.x;
                 preMoveY = this.y;
-				float collisionChecksPerFrame = 1;
+				float collisionChecksPerFrame = 5;
+
+				float xSpeedDelta = xSpeed * Time.deltaTime;
+				float ySpeedDelta = ySpeed * Time.deltaTime;
 
                 for (int i = 0; i < collisionChecksPerFrame; i++)
                 {
-                    Move((xSpeed * Time.deltaTime) / collisionChecksPerFrame,
-                        (ySpeed * Time.deltaTime) / collisionChecksPerFrame);
+					Move(xSpeedDelta / collisionChecksPerFrame,
+						ySpeedDelta  / collisionChecksPerFrame);
 
                     CheckCollisions();
                 }

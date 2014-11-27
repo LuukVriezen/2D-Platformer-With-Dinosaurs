@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +32,7 @@ namespace GXPEngine
         public void BackgroundAnimation()
         {
 
-            frame = frame + 0.09f;
+			frame = frame + 0.025f * Time.deltaTime;
             if (frame >= lastFrame + 1)
             {
                 frame = firstFrame;
