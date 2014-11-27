@@ -64,10 +64,10 @@ namespace GXPEngine
 
         void Update()
         {
-            Console.WriteLine(endScene.currentFrame);
+            //Console.WriteLine();
         }
 
-        public void OpeningScene()
+        public bool OpeningScene()
         {
             startFrame = startFrame + 0.1f;
             if (startFrame >= startLastFrame + 1)
@@ -79,9 +79,15 @@ namespace GXPEngine
                 startFrame = startLastFrame;
             }
             startScene.SetFrame((int)startFrame);
+            if ((int)startFrame >= 26)
+            {
+                startFrame = 0;
+                return false;
+            }
+            return true;
         }
 
-        public void EndScene()
+        public bool EndScene()
         {
             endFrame = endFrame + 0.1f;
             //endScene.SetFrame(0);
@@ -94,6 +100,12 @@ namespace GXPEngine
                 endFrame = endLastFrame;
             }
             endScene.SetFrame((int)endFrame);
+
+            if (endLastFrame >= 14)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

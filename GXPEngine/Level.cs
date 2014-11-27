@@ -406,6 +406,7 @@ namespace GXPEngine
             if (timer <= 0)
             {
                 isGameOver = false;
+                getParentMyGame().isCutSene = true;
                 MyGame.restartLevel = false;
                 getParentMyGame().dead = true;
                 for (int i = 0; i < children.Count; i++)
