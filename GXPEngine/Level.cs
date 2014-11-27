@@ -28,7 +28,7 @@ namespace GXPEngine
         public Player player;
 		private LevelReader reader;
         GameOver gameover;
-        int timer = 10;
+        int timer = 2;
         public bool isGameOver;
         int oldtime = 0;
         int seconds = 10000;
@@ -75,6 +75,8 @@ namespace GXPEngine
 					Platform platform;
 					Lava lava;
 					Enemy enemy;
+                    Collectable treasure;
+                    Flag flag;
 					switch(tileData[y, x])
 					{
 						case 1:
@@ -211,7 +213,6 @@ namespace GXPEngine
                         case 20:
                             lava = new Lava(new Point(x, y));
                             lava.SetXY(x * tileSize, y * tileSize);
-                            lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile3.png", 1, 1));
                             this.AddChild(lava);
                             break;
 
@@ -220,6 +221,19 @@ namespace GXPEngine
                             lava.SetXY(x * tileSize, y * tileSize);
                             lava.SetSprite(new AnimSprite("../../Assets/IMG/32spacetile4.png", 1, 1));
                             this.AddChild(lava);
+                            break;
+
+                        case 22:
+                            flag = new Flag();
+                            flag.SetXY(x * tileSize, y * tileSize);
+                            this.AddChild(flag);
+                            break;
+
+                        case 23:
+                            treasure = new Collectable(new Point(x, y));
+                            treasure.SetXY(x * tileSize, y * tileSize);
+                            treasure.SetSprite(new AnimSprite("../../Assets/IMG/tresure-chest-spritesheet.png", 4, 2));
+                            this.AddChild(treasure);
                             break;
 
                         default:
@@ -273,7 +287,7 @@ namespace GXPEngine
             {
                 if (Time.now > (oldtime + 1000))
                 {
-                    if (timer < 10)
+                    if (timer < 2)
                     {
                         gameover.Destroy();
                     }
@@ -281,22 +295,22 @@ namespace GXPEngine
                     GameOver(timer);
                     timer--;
                 }
-                if (Input.GetKey(Key.S))
-                {
-                    List<GameObject> elements = this.GetChildren();
-                    if (timer > 0)
-                    {
-                        for (int i = 0; i < elements.Count; i++)
-                        {
-                            elements[i].Destroy();
-                        }
-                        getParentMyGame().dead = false;
-                        this.Destroy();
-                        isGameOver = false;
-                        MyGame.restartLevel = true;
-                    }
-                    isGameOver = false;
-                }
+                #region oldShit
+                //if (Input.GetKey(Key.S))
+                //{
+                //    List<GameObject> elements = this.GetChildren();
+                //    if (timer > 0)
+                //    {
+                //        for (int i = 0; i < elements.Count; i++)
+                //        {
+                //            elements[i].Destroy();
+                //        }
+                //        getParentMyGame().dead = false;
+                //        this.Destroy();
+                //        isGameOver = false;
+                //        MyGame.restartLevel = true;
+                //    }
+                #endregion
             }
             
 
@@ -364,10 +378,10 @@ namespace GXPEngine
                 {
                    y = 300 - player.y;
                 }
-                Console.WriteLine("Px: " + player.x);
-                Console.WriteLine("Py+y: " + (player.y + y));
-                Console.WriteLine("Cx: " + x);
-                Console.WriteLine("Cy: " + y);
+                //Console.WriteLine("Px: " + player.x);
+                //Console.WriteLine("Py+y: " + (player.y + y));
+                //Console.WriteLine("Cx: " + x);
+                //Console.WriteLine("Cy: " + y);
             }
 		}
 
@@ -375,8 +389,11 @@ namespace GXPEngine
         {
             //Back to the start anyways.
             gameover = new GameOver(timer);
-            gameover.x = player.x - player.sprite.width - 20;
-            AddChild(gameover);
+            //gameover.x = player.x - player.sprite.width - 20;
+            gameover.x = -x;
+            gameover.y = y+300;
+            //gameover.y = game.y;
+            this.AddChild(gameover);
 
             List<GameObject> children = this.GetChildren();
             foreach (GameObject child in children)

@@ -199,14 +199,18 @@ namespace GXPEngine
                 stopShot = false;
             }
             else*/
-			if (sprite.x < creature.getParentLevel().width)
+            try
             {
-                stopShot = true;
+                if (sprite.x < creature.getParentLevel().width)
+                {
+                    stopShot = true;
+                }
+                else
+                {
+                    RemoveProjectile();
+                }
             }
-            else
-            {
-				RemoveProjectile();
-            }
+            catch { };
 
         }
 

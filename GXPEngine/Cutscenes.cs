@@ -51,7 +51,7 @@ namespace GXPEngine
         //    video = Content.Load<Video>("first cut scene");
             //    videoPlayer = new VideoPlayer();
             #endregion
-            startScene = new AnimSprite("../../Assets/Video/cut1sprite.png", 6, 5);
+            startScene = new AnimSprite("../../Assets/Video/cut1sprite1111.png", 6, 5);
             startScene.width = width;
             startScene.height = height;
             AddChild(startScene);

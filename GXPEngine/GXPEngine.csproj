@@ -108,6 +108,7 @@
     <Compile Include="Background.cs" />
     <Compile Include="Beam.cs" />
     <Compile Include="Cutscenes.cs" />
+    <Compile Include="Flag.cs" />
     <Compile Include="GameOver.cs" />
     <Compile Include="LeaderBoard.cs" />
     <Compile Include="MessageBox.cs" />

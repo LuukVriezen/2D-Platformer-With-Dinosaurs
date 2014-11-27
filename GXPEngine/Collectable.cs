@@ -19,22 +19,19 @@ namespace GXPEngine
 		public Collectable(Point tileCoordinates) : base(tileCoordinates)
         {
             //TEMP
-            SetSprite(new AnimSprite("../../Assets/IMG/tresure-chest-spritesheet.png", 4, 2));
+            SetSprite(new AnimSprite("../../Assets/IMG/tresure chest spritesheet.png", 4, 2));
+            sprite.width = 50;
+            sprite.height = 50;
+            sprite.y = -20;
+            sprite.SetFrame(4);
 			//TEMPEND
         }
 
         void Update()
         {
-            if (framecounter < 8)
-            {
-                TreasureAnimation();
-            }
-            else
-            {
-                sprite.SetFrame(7);
-                framecounter = 0;
-            }
+
         }
+
 
         public int TreasureAnimation()
         {

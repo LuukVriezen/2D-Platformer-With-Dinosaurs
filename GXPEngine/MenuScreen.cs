@@ -16,7 +16,7 @@ namespace GXPEngine
         public MenuScreen()
         {
             glow = new Sprite("../../Assets/IMG/menu light.png");
-            menusprite = new Sprite("../../Assets/IMG/menu sample.png");
+            menusprite = new Sprite("../../Assets/IMG/Menu.png");
 
             Canvas menuCanvas = new Canvas(game.width, game.height);
             menusprite.width = game.width;
@@ -37,7 +37,7 @@ namespace GXPEngine
             if (isKeyDown)
             {
                 glow.SetXY(0, 178);
-                glow.width = 225;
+                glow.width = 240;
                 glow.height = 90;
 
             }
@@ -50,8 +50,8 @@ namespace GXPEngine
             if (isKeyUp)
             {
 
-                glow.SetXY(0, 35);
-                glow.width = 225;
+                glow.SetXY(0, 40);
+                glow.width = 240;
                 glow.height = 90;
             }
         }
