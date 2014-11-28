@@ -236,7 +236,7 @@ namespace GXPEngine
                         case 23:
                             treasure = new Collectable(new Point(x, y));
                             treasure.SetXY(x * tileSize, y * tileSize);
-                            treasure.SetSprite(new AnimSprite("../../Assets/IMG/tresure-chest-spritesheet.png", 4, 2));
+                            //treasure.SetSprite(new AnimSprite("../../Assets/IMG/tresure-chest-spritesheet.png", 4, 2));
                             this.AddChild(treasure);
                             break;
 
