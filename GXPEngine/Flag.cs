@@ -5,15 +5,19 @@ using System.Text;
 
 namespace GXPEngine
 {
-    class Flag : SpriteObject
+    class Flag : GameObject
     {
         float frame = 0.0f;
         int firstFrame = 0;
         int lastFrame = 1;
+
+        AnimSprite flag;
         public Flag() : base()
         {
-            SetSprite(new AnimSprite("../../Assets/IMG/flag.png", 2, 1));
+            //SetSprite(new AnimSprite("../../Assets/IMG/flag.png", 2, 1));
             //AddChild(sprite);
+            flag = new AnimSprite("../../Assets/IMG/flag.png",2,1);
+            AddChild(flag);
         }
 
         void Update()
@@ -32,7 +36,7 @@ namespace GXPEngine
             {
                 frame = lastFrame;
             }
-            sprite.SetFrame((int)frame);
+            flag.SetFrame((int)frame);
         }
     }
 }

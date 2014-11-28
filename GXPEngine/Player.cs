@@ -22,6 +22,7 @@ namespace GXPEngine
 
         Sound shootSound;
         Sound playerDeadSound;
+        Sound treasureSound;
 
 		public Player (float weight, float terminalVelocity, float walkSpeed, float jumpHeight) : base(weight, terminalVelocity, walkSpeed, jumpHeight)
 		{
@@ -38,6 +39,7 @@ namespace GXPEngine
 
             shootSound = new Sound("../../Assets/Sounds/cptdinopistols.mp3");
             playerDeadSound = new Sound("../../Assets/Sounds/PlayerDead.mp3");
+            treasureSound = new Sound("");
 
 			//TEMP
 			SetSprite(new AnimSprite("../../Assets/IMG/32spritesheetdino.png", 14, 3));
@@ -114,6 +116,7 @@ namespace GXPEngine
 					{
 						getParentLevel().player.score += (collidableObject as Collectable).TreasurePoints();
 						getParentLevel().RemoveChild(collidableObject);
+                        treasureSound.Play();
 					}
 					else if(collidableObject is Lava)
 					{
@@ -131,6 +134,10 @@ namespace GXPEngine
 					{
 						SubtractLife();
 					}
+                    else if (collidableObject is Flag)
+                    {
+                        Console.WriteLine(true);
+                    }
 				}
 			}
 		}
