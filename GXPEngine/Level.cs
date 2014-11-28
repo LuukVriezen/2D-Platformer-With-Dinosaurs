@@ -33,6 +33,9 @@ namespace GXPEngine
         int oldtime = 0;
         int seconds = 10000;
 
+        bool isBack = true;
+        bool writeToFile = false;
+
 		public Level(/*Temporarily disabled: int tilesX, int tilesY*/ int width, int height, int tileSize, LevelReader reader) : base(width, height)
 		{
             //Set default values
@@ -284,6 +287,12 @@ namespace GXPEngine
 		}
         void Update()
         {
+            if (Input.GetKey(Key.W) && isBack)
+            {
+                GameOver(0);
+                gameover.Destroy();
+                isBack = false;
+            }
             if (isGameOver)
             {
                 if (Time.now > (oldtime + 1000))
@@ -390,11 +399,16 @@ namespace GXPEngine
         {
             //Back to the start anyways.
             gameover = new GameOver(timer);
-            //gameover.x = player.x - player.sprite.width - 20;
             gameover.x = -x;
             gameover.y = -y + 100;
             //gameover.y = game.y;
             this.AddChild(gameover);
+            if (writeToFile == false)
+            {
+                LeaderBoard leaderBoard = new LeaderBoard(game.width, game.height);
+                leaderBoard.WriteToFile("", player.score);
+                writeToFile = true;
+            }
 
             List<GameObject> children = this.GetChildren();
             foreach (GameObject child in children)
@@ -409,7 +423,7 @@ namespace GXPEngine
                 isGameOver = false;
                 //getParentMyGame().isCutSene = true;
                 MyGame.restartLevel = false;
-                getParentMyGame().dead = true;
+                MyGame.dead = true;
                 for (int i = 0; i < children.Count; i++)
                 {
                     children[i].Destroy();

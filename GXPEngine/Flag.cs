@@ -13,7 +13,7 @@ namespace GXPEngine
         public Flag() : base()
         {
             SetSprite(new AnimSprite("../../Assets/IMG/flag.png", 2, 1));
-            AddChild(sprite);
+            //AddChild(sprite);
         }
 
         void Update()

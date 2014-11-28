@@ -23,7 +23,7 @@ namespace GXPEngine
         public bool isCutSene = true;
 
         static public bool restartLevel = false;
-        public bool dead = false;
+        static public bool dead = false;
         public bool stilldead = false;
 
 		public MyGame () : base(640, 480, false)
@@ -47,18 +47,19 @@ namespace GXPEngine
 		void Update () 
         {
             background.BackgroundAnimation();
-            if (Input.GetKeyDown(Key.W))
+
+            if (Input.GetKey(Key.W))
             {
                 leaderBoard.Destroy();
                 MakeMenu();
             }
             if (Input.GetKeyDown(Key.S) || isPressed)
             {
-                menuScreen.inGame = true;
                 bool isLeaderBoard = menuScreen.LeaderBoard();
                 leaderBoard.Destroy();
                 if (makeLevel && isLeaderBoard == false)
                 {
+                    menuScreen.inGame = true;
                     MakeLevel();
                     makeLevel = false;
                     stilldead = false;
@@ -82,6 +83,7 @@ namespace GXPEngine
                     {
                         makeLevel = true;
                     }
+                    menuScreen.inGame = false;
                     restartLevel = false;
                     stilldead = false;
                 }
@@ -94,6 +96,7 @@ namespace GXPEngine
                     dead = true;
                     stilldead = true;
                     isPressed = false;
+                    menuScreen.inGame = false;
                     restartLevel = true;
                 }
                 if (stilldead == false && isPressed)
